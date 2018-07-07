@@ -1,20 +1,45 @@
 import * as React from 'react';
 import './App.css';
 
-import logo from './logo.svg';
-
 class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="jumbotron">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+
+  <div className="jumbotron jumbotron-fluid">
+  <div className="container">
+    <br/>
+    <h2>The Future of X</h2>
+    <br/>
+
+    <div className="reminderbox">
+    <span className="remindertitle">Orient to the Future</span>
+    <br/>
+    Ask your teammates this question, and take a temperature of the room. The group must collectively decide on an option. Then the leader must select the option below.
+    </div>
+
+    <br/>
+
+    <div className="promptbox">
+    <p>"In my current position, I feel quite <span className="replyspan">[ Empowered / Disempowered ]</span> about helping my organization (or my client’s organization) move toward a positive future."</p>    
+    </div>
+
+    <div className="responsebox">
+    <p className="btn btn-primary">Empowered</p> 
+    <br/>
+    <p className="btn btn-primary">Disempowered</p> 
+    <br/>
+    </div>
+
+  </div>
+</div>
+<br/>
+<p className="btn btn-secondary">Go back</p>     
+<p className="backwarning">Don't use your browser's back button.</p>
+
+
       </div>
+
     );
   }
 }
