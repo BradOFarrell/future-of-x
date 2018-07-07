@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import './App.css';
 import Content from './Content';
 
@@ -11,6 +12,33 @@ class App extends React.Component {
   
     <div className="jumbotron jumbotron-fluid">
     <div className="container">
+      <Router>
+        <div>
+        <ul>
+          <li>
+            <Link to="/">Step One</Link>
+          </li>
+          <li>
+            <Link to="/two">Step Two</Link>
+          </li>
+          <li>
+            <Link to="/three">Step Three</Link>
+          </li>
+          <li>
+            <Link to="/four">Step Four</Link>
+          </li>
+          <li>
+            <Link to="/five">Step Five</Link>
+          </li>
+        </ul>
+        <hr />
+        <Route exact={true} path="/" component={StepOne} />
+        <Route path="/two" component={StepTwo} />
+        <Route path="/three" component={StepThree} />
+        <Route path="/four" component={StepFour} />
+        <Route path="/five" component={StepFive} />
+        </div>
+      </Router>
       <br/>
       <h2>The Future of X</h2>
       <br/>
@@ -50,5 +78,35 @@ class App extends React.Component {
     }
   }
 }
+
+const StepOne = () => (
+  <div>
+    <h2>Step One</h2>
+  </div>
+);
+
+const StepTwo = () => (
+  <div>
+    <h2>Step Two</h2>
+  </div>
+);
+
+const StepThree = () => (
+  <div>
+    <h2>Step Three</h2>
+  </div>
+);
+
+const StepFour = () => (
+  <div>
+    <h2>Step Four</h2>
+  </div>
+);
+
+const StepFive = () => (
+  <div>
+    <h2>Step Five</h2>
+  </div>
+);
 
 export default App;
