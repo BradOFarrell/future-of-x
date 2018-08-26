@@ -20,8 +20,8 @@ class StepTwo extends React.Component {
       newsfeed: new Array()
     }
   }
-  cloudCanvas(query, needsfeed) {
-    let removedWords = [" of ", " the ", " in ", " on ", " at ", " to ", " a ", " an ", " for ", " is ", " will ", " be ", " news "];
+  cloudCanvas(query, newsfeed) {
+    let removedWords = [" of ", " the ", " in ", " on ", " at ", " to ", " a ", " an ", " for ", " is ", " will ", " be ", " news ", " if ", " about ", " after "];
     let processedTitles = '';
     let wordCollection = [];
     let mostCommonWords;
@@ -29,18 +29,18 @@ class StepTwo extends React.Component {
 
     // Add query to removed words list
     query.toLowerCase().split(' ').forEach(word => {
-      removedWords.push(word+" ")
-      removedWords.push(word+"s ")
+      removedWords.push(" "+word+" ")
+      removedWords.push(" "+word+"s ")
     })
 
     // Grab headlines, strip out punctuation and removed words
-    needsfeed.forEach(article => {
+    newsfeed.forEach(article => {
       let headline = article.title.toLowerCase();
-      headline = headline.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+      headline = headline.replace(/[.,\/#!$%\^&\*;:{}=\-_`'~()]/g,"");
       removedWords.forEach(word => {
-        headline = headline.replace(word,"");
+        headline = headline.replace(word," ");
       })
-      processedTitles += headline;
+      processedTitles += headline + " ";
     });
 
     // Turn headline into lis
@@ -48,30 +48,82 @@ class StepTwo extends React.Component {
       wordCollection.push(word)
     })
 
-    mostCommonWords = MostCommon(wordCollection, 20);
+    mostCommonWords = MostCommon(wordCollection, 100);
+
+    let highestCount = 0;
+    mostCommonWords.forEach(word => {
+      if (word.count > highestCount) {
+        highestCount = word.count;
+      }
+    });
 
     mostCommonWords.forEach(e => {
       var innerArray = [];
       innerArray.push(e.token);
-      innerArray.push(e.count);
+
+      let count = e.count;
+      if (count == 1) {
+
+        if (count == 1) {
+          count += 2;
+        }
+      }
+
+      innerArray.push(count);
       outerArray.push(innerArray);
     });
 
+    var self = this;
 
     return WordCloud(document.getElementById('cloudCanvas'), {list:outerArray, 
                                                               clearCanvas: true,
                                                               fontFamily: "'Roboto', sans-serif",
                                                               color: "#00BAFF", 
                                                               backgroundColor: bgColor,
-                                                              weightFactor: 7,
-                                                              drawOutOfBound: true,
-                                                              minSize: 2,
-                                                              gridSize: 10});
+                                                              weightFactor: 8,
+                                                              minSize: 1,
+                                                              shape: "square",
+                                                              click: function(item) {
+                                                                self.handleCloudClick(item[0]);
+                                                              }});
   }
   handleChange = (e) => {
     searchTerm = e.target.value;
     console.log(searchTerm)
   }
+
+  //Set the drivers fields if the users taps on a word from the wordcloud
+  handleCloudClick(clickedString) {
+    let driver1 = document.getElementById("myDriver1");
+    let driver2 = document.getElementById("myDriver2");
+    let driver3 = document.getElementById("myDriver3");
+
+    if (!driver1.value) {
+      driver1.value = clickedString;
+      return;
+    } 
+    if (driver1.value && !driver2.value) {
+      driver2.value = clickedString;
+      return;
+    } 
+    if (driver1.value && driver2.value) {
+      driver3.value = clickedString;
+      return;
+    }
+
+  }
+
+  //Clear the driver input fields out
+  clearDrivers() {
+    let driver1 = document.getElementById("myDriver1");
+    let driver2 = document.getElementById("myDriver2");
+    let driver3 = document.getElementById("myDriver3");
+
+    driver1.value = "";
+    driver2.value = "";
+    driver3.value = "";
+  }
+
   canvas(){
     if(this.state.newsfeed[0]){
       return (<canvas id="cloudCanvas" width="335" height="300"/>);
@@ -80,6 +132,9 @@ class StepTwo extends React.Component {
     }
   }
   handleSubmit= (e) => {
+    //Since we're doing a new search clear the drivers list
+    this.clearDrivers();
+
     e.preventDefault();
     const output = new Array();
     (async () => {
@@ -118,8 +173,8 @@ class StepTwo extends React.Component {
       <br/>
       </div>
 
-      <form onSubmit={this.handleSubmit}>
-      <input type="text" placeholder="SEARCH TERM" className="inputText" id="myUnit"
+      <form className="spacer" onSubmit={this.handleSubmit}>
+      <input type="text" style={{marginRight:"15px"}} placeholder="SEARCH TERM" className="inputText" id="myUnit"
         onChange={this.handleChange}/>
       <button type="submit" className="btn btn-primary">GO</button>
       </form>
@@ -136,9 +191,9 @@ class StepTwo extends React.Component {
   
       <div className="responsebox">
       <form onSubmit={this.handleSubmit}>
-      <input type="text" placeholder="Driver #1" className="inputText" id="myUnit"/><br/><br/>
-      <input type="text" placeholder="Driver #2" className="inputText" id="myUnit"/><br/><br/>
-      <input type="text" placeholder="Driver #3" className="inputText" id="myUnit"/><br/><br/>
+      <input type="text" placeholder="Driver #1" className="inputText" id="myDriver1"/><br/><br/>
+      <input type="text" placeholder="Driver #2" className="inputText" id="myDriver2"/><br/><br/>
+      <input type="text" placeholder="Driver #3" className="inputText" id="myDriver3"/><br/><br/>
       </form>
 
       <p className="btn btn-primary">Next Step</p> 

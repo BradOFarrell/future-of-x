@@ -99,6 +99,15 @@ a {
   color: #ce0000;
   font-size: 10pt;
 }
+
+/* Generic class for spacing elements vertically */
+.spacer {
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /*
 
 IFTF css files, for reference. I'll pull individual elements as they get used, to try to match style. 
