@@ -20,31 +20,37 @@ class StepTwo extends React.Component {
       newsfeed: new Array()
     }
   }
-  cloudCanvas(input) {
+  cloudCanvas(query, needsfeed) {
+    let removedWords = [" of ", " the ", " in ", " on ", " at ", " to ", " a ", " an ", " for ", " is ", " will ", " be ", " news "];
+    let processedTitles = '';
     let wordCollection = [];
-    let commonWords;
+    let mostCommonWords;
     let outerArray = [];
-    let titleDeconstruction = [];
-    let output = [];
 
-    input.forEach(article => {
-      wordCollection.push(article);
-    });
+    // Add query to removed words list
+    query.toLowerCase().split(' ').forEach(word => {
+      removedWords.push(word+" ")
+      removedWords.push(word+"s ")
+    })
 
-    wordCollection.forEach(e => {
-      let titleBroken = e.title.split(" ");
-      titleBroken.forEach(title => {
-        titleDeconstruction.push(title);
+    // Grab headlines, strip out punctuation and removed words
+    needsfeed.forEach(article => {
+      let headline = article.title.toLowerCase();
+      headline = headline.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+      removedWords.forEach(word => {
+        headline = headline.replace(word,"");
       })
+      processedTitles += headline;
     });
 
-    titleDeconstruction.forEach(e => {
-      output.push(e.replace(/['"]+/g, ''))
-    });
+    // Turn headline into lis
+    processedTitles.split(' ').forEach(word => {
+      wordCollection.push(word)
+    })
 
-    commonWords = MostCommon(titleDeconstruction, 20);
+    mostCommonWords = MostCommon(wordCollection, 20);
 
-    commonWords.forEach(e => {
+    mostCommonWords.forEach(e => {
       var innerArray = [];
       innerArray.push(e.token);
       innerArray.push(e.count);
@@ -87,9 +93,12 @@ class StepTwo extends React.Component {
       this.setState({newsfeed: output});
 
       if(this.state.newsfeed[0]){
-        this.cloudCanvas(this.state.newsfeed);
-      }
+        this.cloudCanvas(searchTerm,this.state.newsfeed);
+      } 
     })();
+  }
+  componentWillMount(){
+    
   }
   render() {
     {
