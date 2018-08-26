@@ -84,6 +84,7 @@ class StepOne extends React.Component{
   validateNext = () => {
     if(this.state.checkedBoxes.length == 3){
       // Send data to app state
+      this.props.update({searchTerm: this.state.searchTerm})
       window.location = "/two";
     } else {
       document.getElementById("warn").innerHTML = "You must select three headlines.";
