@@ -91,6 +91,7 @@ class StepOne extends React.Component{
   }
   validateNext = () => {
     if(this.state.checkedBoxes.length == 3){
+      window.scrollTo(0,0);
       this.props.update({searchTerm: this.state.searchTerm})
       this.setState({nextPage: true});
         } else {

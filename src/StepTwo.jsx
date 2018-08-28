@@ -179,6 +179,7 @@ class StepTwo extends React.Component {
     const term = this.props.get("searchTerm")
     this.setState({searchTerm: term})
     if(term) {
+      document.getElementById("searchBox").value = term;
       this.generateCanvas(term);
     }
   }
@@ -202,7 +203,7 @@ class StepTwo extends React.Component {
       </div>
 
       <form onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="SEARCH TERM" className="inputText"
+        <input type="text" placeholder="SEARCH TERM" className="inputText" id="searchBox"
           onChange={this.handleChange}/>
         <button type="submit" className="btn btn-primary">GO</button>
       </form>
