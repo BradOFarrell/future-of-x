@@ -4,9 +4,9 @@ import './App.css';
 import MostCommon from 'most-common';
 import Parser from 'rss-parser';
 import './App.css';
+import { Route, Redirect } from 'react-router'
 
 const parser = new Parser();
-let searchTerm = "";
 const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 
 const width = window.innerWidth;
@@ -17,11 +17,15 @@ class StepTwo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      newsfeed: new Array()
+      searchTerm: "",
+      newsfeed: new Array(),
+      boxCounter: 0,
+      loading: false,
+      nextPage: false
     }
   }
   cloudCanvas(query, newsfeed) {
-    let removedWords = [" of ", " the ", " in ", " on ", " at ", " to ", " a ", " an ", " for ", " is ", " will ", " be ", " news ", " if ", " about ", " after "];
+    let removedWords = [" but ", " yet "," of ", " the ", " in ", " on ", " at ", " to ", " a ", " an ", " for ", " is ", " will ", " be ", " news ", " if ", " about ", " after "];
     let processedTitles = '';
     let wordCollection = [];
     let mostCommonWords;
@@ -43,12 +47,17 @@ class StepTwo extends React.Component {
       processedTitles += headline + " ";
     });
 
+    console.log(removedWords);
+    console.log(processedTitles);
+
     // Turn headline into lis
     processedTitles.split(' ').forEach(word => {
       wordCollection.push(word)
     })
 
     mostCommonWords = MostCommon(wordCollection, 100);
+
+    console.log(mostCommonWords);
 
     let highestCount = 0;
     mostCommonWords.forEach(word => {
@@ -87,11 +96,6 @@ class StepTwo extends React.Component {
                                                                 self.handleCloudClick(item[0]);
                                                               }});
   }
-  handleChange = (e) => {
-    searchTerm = e.target.value;
-    console.log(searchTerm)
-  }
-
   //Set the drivers fields if the users taps on a word from the wordcloud
   handleCloudClick(clickedString) {
     let driver1 = document.getElementById("myDriver1");
@@ -123,22 +127,25 @@ class StepTwo extends React.Component {
     driver2.value = "";
     driver3.value = "";
   }
-
   canvas(){
-    if(this.state.newsfeed[0]){
-      return (<canvas id="cloudCanvas" width="335" height="300"/>);
+    if(this.state.loading){
+      return (<p><br/>⌛ Searching "{this.state.searchTerm}" on Google News...</p>)
     } else {
-      return (<p><br/>Use the search box above to generate headlines.</p>);
+      if(this.state.newsfeed[0]){
+        return (<canvas id="cloudCanvas" width="335" height="300"/>);
+      } else {
+        return (<p><br/>Use the search box above to generate headlines.</p>);
+      }
     }
   }
-  handleSubmit= (e) => {
-    //Since we're doing a new search clear the drivers list
+  generateCanvas(term){
     this.clearDrivers();
-
-    e.preventDefault();
+    this.setState({loading: true});    
     const output = new Array();
+
+    console.log(term);
     (async () => {
-      const feed = await parser.parseURL(CORS_PROXY + 'https://news.google.com/news/rss/search/section/q/' + searchTerm);
+      const feed = await parser.parseURL(CORS_PROXY + 'https://news.google.com/news/rss/search/section/q/' + term);
 
       feed.items.forEach(item => {
        output.push({title: item.title, link: item.link})
@@ -148,45 +155,66 @@ class StepTwo extends React.Component {
       this.setState({newsfeed: output});
 
       if(this.state.newsfeed[0]){
-        this.cloudCanvas(searchTerm,this.state.newsfeed);
+        this.setState({loading: false});    
+        this.cloudCanvas(term,this.state.newsfeed);
       } 
     })();
   }
-  componentWillMount(){
-    
+  handleChange = (e) => {
+    this.setState({searchTerm: e.target.value});
+    console.log(this.state.searchTerm);
+  }
+  handleSubmit= (e) => {
+    //Since we're doing a new search clear the drivers list
+    e.preventDefault();
+    this.generateCanvas(this.state.searchTerm);
+  }
+  validateNext = () => {
+    if(this.state.checkedBoxes.length == 3){
+    } else {
+      document.getElementById("warn").innerHTML = "You must input three drivers.";
+    }
+  }
+  componentDidMount(){
+    const term = this.props.get("searchTerm")
+    this.setState({searchTerm: term})
+    if(term) {
+      this.generateCanvas(term);
+    }
   }
   render() {
     {
-      return (
-    <div className="App">
-  
-    <div className="jumbotron jumbotron-fluid">
+      if(this.state.nextPage){
+        return (<Redirect to="/three"/>)
+      } else {
+        return (
+<div className="App"> 
+  <div className="jumbotron jumbotron-fluid">
     <div className="container">
       <br/>
-      <h2>2: Collect Signals and Drivers</h2>
+      <h2>2: Identify Drivers</h2>
 
       <div className="maintext">
       <br/>
-      <p>A signal is a recent small or local innovation with the potential to scale in impact and affect other places, people, or markets. Drivers are large, long-term underlying directions of change that will shape our future.</p>    
-      <br/>
-      <p>You can use the articles you've collected on the previous step to identify signals. Additionally, you may use this word cloud generator to help identify drivers in headlines; the bigger the word, the more often it appears in articles about your [X]</p> 
+      <p>William Gibson famously wrote, “the future is already here, it’s just not evenly distributed.” Sometimes the future is hiding in plain sight, we just have to broaden our perspective to see it.</p>
+      <p>This tool will represent trends across headlines as a word cloud. You can use the word cloud to identify drivers.  Drivers are large, long-term underlying directions of change that will shape our future.</p> 
       <br/>
       </div>
 
-      <form className="spacer" onSubmit={this.handleSubmit}>
-      <input type="text" style={{marginRight:"15px"}} placeholder="SEARCH TERM" className="inputText" id="myUnit"
-        onChange={this.handleChange}/>
-      <button type="submit" className="btn btn-primary">GO</button>
+      <form onSubmit={this.handleSubmit}>
+        <input type="text" placeholder="SEARCH TERM" className="inputText"
+          onChange={this.handleChange}/>
+        <button type="submit" className="btn btn-primary">GO</button>
       </form>
 
       <div className="reminderbox">
-      {this.canvas()}  
+        {this.canvas()}  
       </div>
   
       <br/>
   
       <div className="maintext">
-      <p>Use the word cloud tool above  A driver can be written as a single word or short phrase.</p>    
+      <p>You can tap any word in the cloud to add it as a driver. You can also write them in yourself.</p>    
       </div>
   
       <div className="responsebox">
@@ -195,17 +223,19 @@ class StepTwo extends React.Component {
       <input type="text" placeholder="Driver #2" className="inputText" id="myDriver2"/><br/><br/>
       <input type="text" placeholder="Driver #3" className="inputText" id="myDriver3"/><br/><br/>
       </form>
-
-      <p className="btn btn-primary">Next Step</p> 
       </div>
-  
+      <div className="maintext">
+        <p>Input three drivers to continue.<br/><br/></p>    
+      </div>  
     </div>
   </div>
-  <br/>
-  <p className="btn btn-secondary">Go back</p>     
-        </div>
-  
-      );        
+  <div className="responsebox">
+    <span className="warnerror" id="warn"></span><br/>
+    <p className="btn btn-primary"  onClick={this.validateNext}>Next Step</p><br/>
+  </div>
+</div>
+        );                  
+      }
     }
   }
 }

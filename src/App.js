@@ -19,25 +19,30 @@ class App extends React.Component {
   }
   updateParent = (update) => {
     this.setState(update)
+    console.log("updated state");
     console.log(this.state);
+  }
+  getParent = (label) => {
+    return this.state[label]
   }
  render() {
     return (
-      <Router>
+     <Router>
       <div>
-          <Link to="/">Home</Link> •&nbsp;&nbsp;
-          <Link to="/one">1: Collect Signals</Link> •&nbsp;&nbsp;
-          <Link to="/two">2: Collect Drivers</Link> •&nbsp;&nbsp;
-          <Link to="/three">3: Reveal Possibilities</Link> •&nbsp;&nbsp;
-          <Link to="/four">4: Alternative Futures</Link> •&nbsp;&nbsp;
-          <Link to="/five">5: Headline the Future</Link> •&nbsp;&nbsp;
-      <hr />
-      <Route path="/one" render={() => (<StepOne update={this.updateParent}/>)} />
-      <Route path="/two" component={StepTwo} />
-      <Route path="/three" component={StepThree} />
-      <Route path="/four" component={StepFour} />
-      <Route path="/five" component={StepFive} />
-      <Route exact={true} path="/" component={Home} />
+        <div style={{fontSize:"8pt"}}>
+            <Link to="/">Home</Link> ►&nbsp;&nbsp;
+            <Link to="/one">Step 1: Collect Signals</Link> ►&nbsp;&nbsp;
+            <Link to="/two">Step 2: Identify Drivers</Link> ►&nbsp;&nbsp;
+            <Link to="/three">Step 3: Reveal Unexpected</Link> ►&nbsp;&nbsp;
+            <Link to="/four">Step 4: Alternative Future</Link> ►&nbsp;&nbsp;
+            <Link to="/five">Step 5: Headline the Future</Link>
+        </div>
+        <Route path="/one" render={() =>   (<StepOne   update={this.updateParent} get={this.getParent}/>)} />
+        <Route path="/two" render={() =>   (<StepTwo   update={this.updateParent} get={this.getParent}/>)} />
+        <Route path="/three" render={() => (<StepThree update={this.updateParent} get={this.getParent}/>)} />
+        <Route path="/four" render={() =>  (<StepFour  update={this.updateParent} get={this.getParent}/>)} />
+        <Route path="/five" render={() =>  (<StepFive  update={this.updateParent} get={this.getParent}/>)} />
+        <Route exact={true} path="/" component={Home} />
       </div>
     </Router>
     );        

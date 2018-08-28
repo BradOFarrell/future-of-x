@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Parser from 'rss-parser';
 import './App.css';
+import { Route, Redirect } from 'react-router'
 
 const parser = new Parser();
 const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
@@ -18,7 +19,8 @@ class StepOne extends React.Component{
       searchTerm: "",
       articles: new Array(),
       checkedBoxes: new Array(),
-      totalCheckedBoxes: 0
+      totalCheckedBoxes: 0,
+      nextPage: false
     }
   }
   checkboxChange = (e) => {
@@ -50,26 +52,31 @@ class StepOne extends React.Component{
     let output = {};
     let id = 0;
     console.log("feedlist");
-    if(this.state.newsfeed[0]){
-      output = this.state.newsfeed.map(e =>{
-        const output = (<tr id={"checkboxContainer"+id}><td>
-        <input type="checkbox" id={"checkbox"+id} onChange={this.checkboxChange}></input></td>
-        <td key={e.title}><a href={e.link} target="_blank">{e.title}</a></td></tr>)
-        id++;
-        return (output);
-      });
-      this.state.totalCheckedBoxes = id;
-      return (<table className="table table-striped table-dark">{output}</table>)
+    if(this.state.loading){
+      return (<p><br/>⌛ Searching "{this.state.searchTerm}" on Google News...</p>)
     } else {
-      return (<p><br/>Use the search box above to generate headlines.</p>)
-    }  
+      if(this.state.newsfeed[0]){
+        output = this.state.newsfeed.map(e =>{
+          const output = (<tr id={"checkboxContainer"+id}><td>
+          <input type="checkbox" id={"checkbox"+id} onChange={this.checkboxChange}></input></td>
+          <td key={e.title}><a href={e.link} target="_blank">{e.title}</a></td></tr>)
+          id++;
+          return (output);
+        });
+        this.state.totalCheckedBoxes = id;
+        return (<table className="table table-striped table-dark">{output}</table>)
+      } else {
+        return (<p><br/>Use the search box above to generate headlines.</p>)
+      }    
+    }
   }
   searchChange = (e) => {
-    this.state.searchTerm = e.target.value;
+    this.setState({searchTerm: e.target.value})    
     console.log(this.state.searchTerm)
   }
   handleSubmit= (e) => {
     e.preventDefault();
+    this.setState({loading: true});    
     const output = new Array();
     (async () => {
       const feed = await parser.parseURL(CORS_PROXY + 'https://news.google.com/news/rss/search/section/q/' + this.state.searchTerm);
@@ -77,22 +84,24 @@ class StepOne extends React.Component{
       feed.items.forEach(item => {
        output.push({title: item.title, link: item.link})
       });
+      this.setState({loading: false});
       console.log(JSON.stringify(output));
       this.setState({newsfeed: output})
     })();
   }
   validateNext = () => {
     if(this.state.checkedBoxes.length == 3){
-      // Send data to app state
       this.props.update({searchTerm: this.state.searchTerm})
-      window.location = "/two";
-    } else {
+      this.setState({nextPage: true});
+        } else {
       document.getElementById("warn").innerHTML = "You must select three headlines.";
     }
   }
   render() {
-    {
-      return (
+  if(this.state.nextPage){
+    return (<Redirect to="/two"/>)
+  } else {
+    return (
 <div className="App">
   <div className="jumbotron jumbotron-fluid">
     <div className="container">
@@ -100,17 +109,13 @@ class StepOne extends React.Component{
       <h2 id="title">Step 1: Collect Signals</h2>
       <br/>
 
-      <div className="container-fluid maintext hide">
-        <p>
-        Imagining a future that is very different from today can often be challenging. But change happens – and it can happen faster than we expect.
-        <br/><br/>
-        We will use this tool to look for headlines that seem to signal a change in the future. A <em>signal</em> is a recent small or local innovation with the potential to scale in impact and affect other places, people, or markets.
-        <br/><br/>
-        </p>    
+      <div className="maintext">
+        <p>Imagining a future that is very different from today can often be challenging. But change happens – and it can happen faster than we expect.</p>
+        <p>We will use this tool to look for headlines that seem to signal a change in the future. A <em>signal</em> is a recent small or local innovation with the potential to scale in impact and affect other places, people, or markets.</p>    
       </div>
 
       <form onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="SEARCH TERM" className="inputText" id="myUnit"
+        <input type="text" placeholder="SEARCH TERM" className="inputText"
         onChange={this.searchChange}/>
         <button type="submit" className="btn btn-primary">GO</button>
       </form>
@@ -121,7 +126,7 @@ class StepOne extends React.Component{
 
       <br/>
 
-      <div className="container-fluid maintext hide">
+      <div className="maintext">
         <p>
           Select three headlines that seem to signal <em>different</em> directions for the future. 
           We will use your selection again on a later step.
@@ -132,13 +137,11 @@ class StepOne extends React.Component{
   </div>
 
   <div className="responsebox">
-  <span className="warnerror" id="warn"></span>
-  <br/>
-  <p className="btn btn-primary"  onClick={this.validateNext}>Next Step</p>
-  <br/>
+    <span className="warnerror" id="warn"></span><br/>
+    <p className="btn btn-primary"  onClick={this.validateNext}>Next Step</p><br/>
   </div>
-</div>
-      );        
+</div> 
+      );          
     }
   }
 }
