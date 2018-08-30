@@ -1,9 +1,55 @@
 import * as React from 'react';
 import './App.css';
+import { Route, Redirect } from 'react-router'
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstTime: false,
+      nextPage: false
+    }
+  }
+  startNew = () => {
+    this.setState({nextPage: true});
+  }
+  startOver = () => {
+    this.props.reset();
+    this.setState({nextPage: true});
+  }
+  startButton(){
+    if(this.state.firstTime){
+      return (
+        <div className="responsebox">
+        <span className="warnerror" id="warn"></span>
+        <br/>
+        <p className="btn btn-primary" onClick={this.startNew}>Start</p>
+        <br/>
+        </div>  
+      );  
+    } else {
+      return (
+        <div className="responsebox">
+        <span className="warnerror" id="warn">This will clear your old data.</span>
+        <br/>
+        <p className="btn btn-primary" onClick={this.startOver}>Start Over</p>
+        <br/>
+        </div>  
+      );  
+    }
+  }
+  componentWillMount(){
+      // String will evaluate as false if empty
+      if(this.props.get("searchTerm")){
+        this.setState({firstTime: false});
+      } else {
+        this.setState({firstTime: true});
+      }
+  }
   render() {
-    {
+    if(this.state.nextPage){
+      return (<Redirect to="/one"/>)
+    } else {
       return (
 <div className="App">  
   <div className="jumbotron jumbotron-fluid">
@@ -28,14 +74,7 @@ class Home extends React.Component {
       <br/> 
     </div>
   </div>
-
-  <div className="responsebox">
-  <span className="warnerror" id="warn"></span>
-  <br/>
-  <p className="btn btn-primary" onClick={() => {window.location = "/one"}}>Start</p>
-  <br/>
-  </div>
-
+  {this.startButton()}
 </div>  
       );        
     }

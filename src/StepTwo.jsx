@@ -12,7 +12,6 @@ const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 const width = window.innerWidth;
 const bgColor = "#2d2d2d";
 
-
 class StepTwo extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +24,7 @@ class StepTwo extends React.Component {
     }
   }
   cloudCanvas(query, newsfeed) {
-    let removedWords = [" but ", " yet "," of ", " the ", " in ", " on ", " at ", " to ", " a ", " an ", " for ", " is ", " will ", " be ", " news ", " if ", " about ", " after "];
+    let removedWords = [" s ", " but "," and", " yet "," of ", " the ", " in ", " on ", " at ", " to ", " a ", " an ", " for ", " is ", " will ", " be ", " news ", " if ", " about ", " after "," shit "," fuck "," undefined "];
     let processedTitles = '';
     let wordCollection = [];
     let mostCommonWords;
@@ -40,15 +39,17 @@ class StepTwo extends React.Component {
     // Grab headlines, strip out punctuation and removed words
     newsfeed.forEach(article => {
       let headline = article.title.toLowerCase();
-      headline = headline.replace(/[.,\/#!$%\^&\*;:{}=\-_`'~()]/g,"");
-      removedWords.forEach(word => {
-        headline = headline.replace(word," ");
-      })
-      processedTitles += headline + " ";
+      processedTitles += " "+ headline +" ";
     });
 
-    console.log(removedWords);
-    console.log(processedTitles);
+    // Remove special characters and banned words
+    processedTitles = processedTitles.replace(/[.,\/#!$%\^&\*;:{}=\-_`'~( )?"]/g," ");
+    removedWords.forEach(word => {
+      processedTitles = processedTitles.replace(new RegExp(word, 'g')," ");
+    })
+
+    // Remove multiple spaces
+    processedTitles = processedTitles.replace(/ +(?= )/g,'');
 
     // Turn headline into lis
     processedTitles.split(' ').forEach(word => {
@@ -56,8 +57,6 @@ class StepTwo extends React.Component {
     })
 
     mostCommonWords = MostCommon(wordCollection, 100);
-
-    console.log(mostCommonWords);
 
     let highestCount = 0;
     mostCommonWords.forEach(word => {
@@ -170,13 +169,21 @@ class StepTwo extends React.Component {
     this.generateCanvas(this.state.searchTerm);
   }
   validateNext = () => {
-    if(this.state.checkedBoxes.length == 3){
+    let driver1 = document.getElementById("myDriver1").value;
+    let driver2 = document.getElementById("myDriver2").value;
+    let driver3 = document.getElementById("myDriver3").value;
+
+    if(driver1 && driver2 && driver3){
+      window.scrollTo(0,0);
+      this.props.update("drivers", [driver1, driver2, driver3])
+      this.setState({nextPage: true});      
     } else {
       document.getElementById("warn").innerHTML = "You must input three drivers.";
     }
   }
   componentDidMount(){
     const term = this.props.get("searchTerm")
+    console.log(term)
     this.setState({searchTerm: term})
     if(term) {
       document.getElementById("searchBox").value = term;
@@ -215,7 +222,7 @@ class StepTwo extends React.Component {
       <br/>
   
       <div className="maintext">
-      <p>You can tap any word in the cloud to add it as a driver. You can also write them in yourself.</p>    
+      <p>Tap any word in the cloud to add it as a driver.</p>    
       </div>
   
       <div className="responsebox">

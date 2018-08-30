@@ -5,11 +5,6 @@ import { Route, Redirect } from 'react-router'
 
 const parser = new Parser();
 const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
-(async () => {
- 
-  const feed = await parser.parseURL(CORS_PROXY + 'https://news.google.com/news/rss/search/section/q/fishing');
-  console.log(feed.title);
-})();
 
 class StepOne extends React.Component{
   constructor(props) {
@@ -24,8 +19,6 @@ class StepOne extends React.Component{
     }
   }
   checkboxChange = (e) => {
-    console.log(e.target.id)
-    console.log(e.target.checked)  
     if(e.target.checked){
       this.state.checkedBoxes.push(e.target.id)
     } else {
@@ -51,7 +44,7 @@ class StepOne extends React.Component{
   feedlist() {
     let output = {};
     let id = 0;
-    console.log("feedlist");
+
     if(this.state.loading){
       return (<p><br/>⌛ Searching "{this.state.searchTerm}" on Google News...</p>)
     } else {
@@ -72,12 +65,15 @@ class StepOne extends React.Component{
   }
   searchChange = (e) => {
     this.setState({searchTerm: e.target.value})    
-    console.log(this.state.searchTerm)
   }
-  handleSubmit= (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
+    this.generateHeadlines();
+  }
+  generateHeadlines = () => {
     this.setState({loading: true});    
     const output = new Array();
+    console.log(this.state.searchTerm);
     (async () => {
       const feed = await parser.parseURL(CORS_PROXY + 'https://news.google.com/news/rss/search/section/q/' + this.state.searchTerm);
 
@@ -92,10 +88,20 @@ class StepOne extends React.Component{
   validateNext = () => {
     if(this.state.checkedBoxes.length == 3){
       window.scrollTo(0,0);
-      this.props.update({searchTerm: this.state.searchTerm})
+      this.props.update("searchTerm", this.state.searchTerm);
+      this.props.update("articles", this.state.articles);
       this.setState({nextPage: true});
         } else {
       document.getElementById("warn").innerHTML = "You must select three headlines.";
+    }
+  }
+  componentDidMount(){
+    const term = this.props.get("searchTerm")
+    if(term) {
+      this.setState({searchTerm: term},()=>{
+        this.generateHeadlines();
+      });
+      document.getElementById("searchBox").value = term;
     }
   }
   render() {
@@ -116,7 +122,7 @@ class StepOne extends React.Component{
       </div>
 
       <form onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="SEARCH TERM" className="inputText"
+        <input type="text" placeholder="SEARCH TERM" className="inputText"  id="searchBox"
         onChange={this.searchChange}/>
         <button type="submit" className="btn btn-primary">GO</button>
       </form>
