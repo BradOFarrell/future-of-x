@@ -41,6 +41,16 @@ class StepOne extends React.Component{
       }
     }
   }
+  addOrRemoveTitle(title){
+    const art = this.state.articles;
+    console.log(title)
+    if(this.state.articles.indexOf(title) > -1){
+      art.splice(art.indexOf(title), 1)
+    } else {
+      this.state.articles.push(title)
+    }
+    console.log(art);
+  }
   feedlist() {
     let output = {};
     let id = 0;
@@ -51,7 +61,7 @@ class StepOne extends React.Component{
       if(this.state.newsfeed[0]){
         output = this.state.newsfeed.map(e =>{
           const output = (<tr id={"checkboxContainer"+id}><td>
-          <input type="checkbox" id={"checkbox"+id} onChange={this.checkboxChange}></input></td>
+          <input type="checkbox" id={"checkbox"+id} onChange={this.checkboxChange} onClick={() => this.addOrRemoveTitle(e.title)}></input></td>
           <td key={e.title}><a href={e.link} target="_blank">{e.title}</a></td></tr>)
           id++;
           return (output);

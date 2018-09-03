@@ -48,7 +48,7 @@ class App extends React.Component {
   return (
      <Router>
       <div>
-        <div style={{fontSize:"8pt"}}>
+        <div style={{fontSize:"8pt", textAlign:"center"}}>
             <Link to="/">Home </Link> &nbsp;&nbsp;►&nbsp;&nbsp;
             <Link to="/one">Step 1 </Link> &nbsp;&nbsp;►&nbsp;&nbsp;
             <Link to="/two">Step 2 </Link> &nbsp;&nbsp;►&nbsp;&nbsp;

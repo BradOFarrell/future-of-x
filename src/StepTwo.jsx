@@ -175,7 +175,8 @@ class StepTwo extends React.Component {
 
     if(driver1 && driver2 && driver3){
       window.scrollTo(0,0);
-      this.props.update("drivers", [driver1, driver2, driver3])
+      this.props.update("drivers", [driver1, driver2, driver3]);
+      this.props.update("searchTerm", this.state.searchTerm);
       this.setState({nextPage: true});      
     } else {
       document.getElementById("warn").innerHTML = "You must input three drivers.";
