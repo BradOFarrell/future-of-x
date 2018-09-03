@@ -9,17 +9,28 @@ class StepThree extends React.Component {
       searchTerm: false,
       articles: false,
       drivers: false,
-      goBack: false,
+      goBackToOne: false,
+      goBackToTwo: false,
       nextPage: false
     }
   }
   reroll = () =>{
-    this.setState({goBack: true});
+    
   }
   randomPrompt = () => {
+    console.log(this.state.seatchTerm)
+    const stepOneDone = (this.state.seatchTerm != false);
+    const stepTwoDone = (this.state.drivers != false);
+    if(stepOneDone){
+      return (<div><span className="warnerror" id="warn">You must complete step 1 to continue</span><br/><br/>
+      <button className="btn btn-primary"  onClick={()=>{this.setState({goBackToOne: true})}}>Back to Step 1</button></div>)
+    } else if(stepTwoDone){
+      return (<div><span className="warnerror" id="warn">You must complete step 2 to continue</span><br/><br/>
+      <button className="btn btn-primary"  onClick={()=>{this.setState({goBackToTwo: true})}}>Back to Step 2</button></div>)
+    } 
     return (<div>hi</div>)
   }
-  componentDidMount(){
+  componentWillMount(){
 
     this.setState({
       searchTerm: this.props.get("searchTerm"),
@@ -35,8 +46,10 @@ class StepThree extends React.Component {
     {
       if(this.state.nextPage){
         return (<Redirect to="/four"/>)
-      } else if(this.state.goBack) {
+      } else if(this.state.goBackToOne) {
         return (<Redirect to="/one"/>)
+      } else if(this.state.goBackToTwo) {
+        return (<Redirect to="/two"/>)
       } else {
         return (
 <div className="App">
@@ -51,7 +64,6 @@ class StepThree extends React.Component {
         <p>This tool will take signals and drivers collected on the previous steps and combine them randomly. You can use this as a prompt to write a headline for the future.</p>    
       </div>
 
-        <button className="btn btn-primary"  onClick={this.reroll}>New Random Prompt</button>
       <div className="reminderbox">
         {this.randomPrompt()}
       </div>

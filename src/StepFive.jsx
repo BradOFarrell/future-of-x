@@ -36,7 +36,7 @@ class StepThree extends React.Component {
         imageObj.onload = function() {
           context.drawImage(imageObj, 0, 0);
         };
-        imageObj.src = require("/Users/rosemary/Documents/future-of-x/src/newspaper.png");
+        imageObj.src = require("./newspaper.png");
       }
   newsPaper(){
 
