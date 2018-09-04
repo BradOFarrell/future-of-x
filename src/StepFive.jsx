@@ -73,7 +73,10 @@ class StepThree extends React.Component {
   }
 
   paintHeadline(context, hiddenContext, headline) {
-    let headlineArray = headline.split(" ");
+    let headlineArray = null;
+    if (headline != '' || headline != null) {
+      headlineArray = headline.split(" ");
+    }
 
     context.font = "50px Futura";
     hiddenContext.font = "50px Futura";
@@ -121,7 +124,11 @@ class StepThree extends React.Component {
   }
 
   paintBody(context, hiddenContext, body) {
-    let bodyArray = body.split(" ");
+
+    let bodyArray = null;
+    if (body != '' || body != null) {
+      bodyArray = body.split(" ");
+    }
 
     context.font = "25px Futura";
     hiddenContext.font = "25px Futura";
@@ -130,6 +137,10 @@ class StepThree extends React.Component {
 
     let bodyLineOne = '', bodyLineOneClosed = false;
     let bodyLineTwo = '', bodyLineTwoClosed = false;
+    let bodyLineThree = '', bodyLineThreeClosed = false;
+    let bodyLineFour = '', bodyLineFourClosed = false;
+    let bodyLineFive = '', bodyLineFiveClosed = false;
+    let bodyLineSix = '', bodyLineSixClosed = false;
 
     bodyArray.forEach(bodyWord => {
       if (!bodyLineOneClosed) {
@@ -151,15 +162,72 @@ class StepThree extends React.Component {
           return;
         }
       }
+
+      if (!bodyLineThreeClosed) {
+        if (context.measureText(bodyLineThree + bodyWord + " ").width > 500) {
+          bodyLineThreeClosed = true;
+        }
+        else {
+          bodyLineThree += bodyWord + " ";
+          return;
+        }
+      }
+
+      if (!bodyLineFourClosed) {
+        if (context.measureText(bodyLineFour + bodyWord + " ").width > 500) {
+          bodyLineFourClosed = true;
+        }
+        else {
+          bodyLineFour += bodyWord + " ";
+          return;
+        }
+      }
+
+      if (!bodyLineFiveClosed) {
+        if (context.measureText(bodyLineFive + bodyWord + " ").width > 500) {
+          bodyLineFiveClosed = true;
+        }
+        else {
+          bodyLineFive += bodyWord + " ";
+          return;
+        }
+      }
+
+      if (!bodyLineSixClosed) {
+        if (context.measureText(bodyLineSix + bodyWord + " ").width > 500) {
+          bodyLineSixClosed = true;
+        }
+        else {
+          bodyLineSix += bodyWord + " ";
+          return;
+        }
+      }
     });
 
     if (bodyLineOne != '') {
       context.fillText(bodyLineOne, 75, 350);
+      hiddenContext.fillText(bodyLineOne, 75, 350);
     }
     if (bodyLineTwo != '') {
       context.fillText(bodyLineTwo, 45, 375);
+      hiddenContext.fillText(bodyLineTwo, 45, 375);
     }
-
+    if (bodyLineThree != '') {
+      context.fillText(bodyLineThree, 45, 400);
+      hiddenContext.fillText(bodyLineThree, 45, 400);
+    }
+    if (bodyLineFour != '') {
+      context.fillText(bodyLineFour, 45, 425);
+      hiddenContext.fillText(bodyLineFour, 45, 425);
+    }
+    if (bodyLineFive != '') {
+      context.fillText(bodyLineFive, 45, 450);
+      hiddenContext.fillText(bodyLineFive, 45, 450);
+    }
+    if (bodyLineSix != '') {
+      context.fillText(bodyLineSix, 45, 475);
+      hiddenContext.fillText(bodyLineSix, 45, 475);
+    }
   }
 
   handleHeadlineChange = (e) => {
