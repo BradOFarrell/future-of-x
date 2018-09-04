@@ -74,7 +74,7 @@ class StepThree extends React.Component {
 
   paintHeadline(context, hiddenContext, headline) {
     let headlineArray = null;
-    if (headline != '' || headline != null) {
+    if (headline != '' && headline != null) {
       headlineArray = headline.split(" ");
     }
 
