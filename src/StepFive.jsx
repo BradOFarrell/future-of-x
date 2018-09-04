@@ -89,29 +89,31 @@ class StepThree extends React.Component {
     let headlineOneClosed = false;
     let headlineTwoClosed = false;
 
-    headlineArray.forEach(headline => {
+    if (headlineArray != null) {
+      headlineArray.forEach(headline => {
 
-      if (!headlineOneClosed) {
-        if (context.measureText(headlineOne + headline).width > 500) {
-          headlineOneClosed = true;
-        } 
-        else {
-          headlineOne += headline + ' ';
-          return;
+        if (!headlineOneClosed) {
+          if (context.measureText(headlineOne + headline).width > 500) {
+            headlineOneClosed = true;
+          } 
+          else {
+            headlineOne += headline + ' ';
+            return;
+          }
         }
-      }
-      
-      if (!headlineTwoClosed) {
-        if (context.measureText(headlineTwo + headline).width > 500) {
-          headlineTwoClosed = true;
-        } 
-        else {
-          headlineTwo += headline + ' ';
-          return;
+        
+        if (!headlineTwoClosed) {
+          if (context.measureText(headlineTwo + headline).width > 500) {
+            headlineTwoClosed = true;
+          } 
+          else {
+            headlineTwo += headline + ' ';
+            return;
+          }
         }
-      }
 
-    });
+      });
+    }
 
     if (headlineOne != '') {
       context.fillText(headlineOne, 75, 175);
@@ -142,67 +144,69 @@ class StepThree extends React.Component {
     let bodyLineFive = '', bodyLineFiveClosed = false;
     let bodyLineSix = '', bodyLineSixClosed = false;
 
-    bodyArray.forEach(bodyWord => {
-      if (!bodyLineOneClosed) {
-        if (context.measureText(bodyLineOne + bodyWord + " ").width > 500) {
-          bodyLineOneClosed = true;
+    if (bodyArray != null) {
+      bodyArray.forEach(bodyWord => {
+        if (!bodyLineOneClosed) {
+          if (context.measureText(bodyLineOne + bodyWord + " ").width > 500) {
+            bodyLineOneClosed = true;
+          }
+          else {
+            bodyLineOne += bodyWord + " ";
+            return;
+          }
         }
-        else {
-          bodyLineOne += bodyWord + " ";
-          return;
-        }
-      }
 
-      if (!bodyLineTwoClosed) {
-        if (context.measureText(bodyLineTwo + bodyWord + " ").width > 500) {
-          bodyLineTwoClosed = true;
+        if (!bodyLineTwoClosed) {
+          if (context.measureText(bodyLineTwo + bodyWord + " ").width > 500) {
+            bodyLineTwoClosed = true;
+          }
+          else {
+            bodyLineTwo += bodyWord + " ";
+            return;
+          }
         }
-        else {
-          bodyLineTwo += bodyWord + " ";
-          return;
-        }
-      }
 
-      if (!bodyLineThreeClosed) {
-        if (context.measureText(bodyLineThree + bodyWord + " ").width > 500) {
-          bodyLineThreeClosed = true;
+        if (!bodyLineThreeClosed) {
+          if (context.measureText(bodyLineThree + bodyWord + " ").width > 500) {
+            bodyLineThreeClosed = true;
+          }
+          else {
+            bodyLineThree += bodyWord + " ";
+            return;
+          }
         }
-        else {
-          bodyLineThree += bodyWord + " ";
-          return;
-        }
-      }
 
-      if (!bodyLineFourClosed) {
-        if (context.measureText(bodyLineFour + bodyWord + " ").width > 500) {
-          bodyLineFourClosed = true;
+        if (!bodyLineFourClosed) {
+          if (context.measureText(bodyLineFour + bodyWord + " ").width > 500) {
+            bodyLineFourClosed = true;
+          }
+          else {
+            bodyLineFour += bodyWord + " ";
+            return;
+          }
         }
-        else {
-          bodyLineFour += bodyWord + " ";
-          return;
-        }
-      }
 
-      if (!bodyLineFiveClosed) {
-        if (context.measureText(bodyLineFive + bodyWord + " ").width > 500) {
-          bodyLineFiveClosed = true;
+        if (!bodyLineFiveClosed) {
+          if (context.measureText(bodyLineFive + bodyWord + " ").width > 500) {
+            bodyLineFiveClosed = true;
+          }
+          else {
+            bodyLineFive += bodyWord + " ";
+            return;
+          }
         }
-        else {
-          bodyLineFive += bodyWord + " ";
-          return;
-        }
-      }
 
-      if (!bodyLineSixClosed) {
-        if (context.measureText(bodyLineSix + bodyWord + " ").width > 500) {
-          bodyLineSixClosed = true;
+        if (!bodyLineSixClosed) {
+          if (context.measureText(bodyLineSix + bodyWord + " ").width > 500) {
+            bodyLineSixClosed = true;
+          }
+          else {
+            bodyLineSix += bodyWord + " ";
+            return;
+          }
         }
-        else {
-          bodyLineSix += bodyWord + " ";
-          return;
-        }
-      }
-    });
+      });
+    }
 
     if (bodyLineOne != '') {
       context.fillText(bodyLineOne, 75, 350);
