@@ -191,8 +191,16 @@ class StepThree extends React.Component {
     a.click();
   }
   componentWillMount(){
-    const headline =  this.props.get("headline");
-    const articleText = this.props.get("articleText");
+    let headline =  this.props.get("headline");
+    let articleText = this.props.get("articleText");
+
+    if(headline == ""){
+      headline = "Enter your own headline";
+    }
+    if(articleText == ""){
+      articleText = "Write your article here";
+    }
+
     newsTitle = headline;
     newsBody = articleText;
     this.setState({
@@ -202,8 +210,6 @@ class StepThree extends React.Component {
   componentDidMount(){
     document.getElementById("articleTitle").value = this.state.articleTitle;
     document.getElementById("articleBody").value = this.state.articleBody;;
-
-
 
     window.addEventListener('resize', this.resizeCanvas, false);
     window.addEventListener('orientationchange', this.resizeCanvas, false);
