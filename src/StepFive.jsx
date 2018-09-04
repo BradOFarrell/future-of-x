@@ -126,7 +126,7 @@ class StepThree extends React.Component {
   paintBody(context, hiddenContext, body) {
 
     let bodyArray = null;
-    if (body != '' || body != null) {
+    if (body != '' && body != null) {
       bodyArray = body.split(" ");
     }
 
