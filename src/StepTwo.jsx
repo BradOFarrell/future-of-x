@@ -216,7 +216,7 @@ class StepTwo extends React.Component {
         <button type="submit" className="btn btn-primary">GO</button>
       </form>
 
-      <div className="reminderbox">
+      <div className="reminderboxcentered">
         {this.canvas()}  
       </div>
   

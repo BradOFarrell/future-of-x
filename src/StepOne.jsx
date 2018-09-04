@@ -98,8 +98,9 @@ class StepOne extends React.Component{
   validateNext = () => {
     if(this.state.checkedBoxes.length == 3){
       window.scrollTo(0,0);
+      console.log(this.state.articles);
       this.props.update("searchTerm", this.state.searchTerm);
-      this.props.update("articles", this.state.articles);
+      this.props.update("signals", this.state.articles);
       this.setState({nextPage: true});
         } else {
       document.getElementById("warn").innerHTML = "You must select three headlines.";
@@ -137,7 +138,7 @@ class StepOne extends React.Component{
         <button type="submit" className="btn btn-primary">GO</button>
       </form>
 
-      <div className="reminderbox">
+      <div className="reminderboxcentered">
         {this.feedlist()}  
       </div>
 

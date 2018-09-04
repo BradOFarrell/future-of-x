@@ -13,31 +13,51 @@ class App extends React.Component {
   super(props);
   this.state = {
       searchTerm: "",
-      articles: new Array(),
+      signals: new Array(),
       drivers: new Array(),
+      chosenSignal: "",
+      chosenDriverA: "",
+      chosenDriverB: "",
       headline: "",
       articleText: ""
     }
   }
   updateParent = (key, value) => {
+    console.log(key)
+    console.log(value)
     this.setState({ [key]: value });
-    localStorage.setItem(key, value);
+    if(key == "signals"){
+      localStorage.setItem("signal0", value[0]);
+      localStorage.setItem("signal1", value[1]);
+      localStorage.setItem("signal2", value[2]);
+    } else if(key == "drivers"){
+      localStorage.setItem("driver0", value[0]);
+      localStorage.setItem("driver1", value[1]);
+      localStorage.setItem("driver2", value[2]);
+    } else {
+      localStorage.setItem(key, value);
+    }
   }
   getParent = (label) => {
     return this.state[label]
     console.log(JSON.stringify(this.state))
   }
   componentWillMount() {
-    this.setState({ searchTerm : localStorage.getItem('searchTerm') });
-    this.setState({ articles : localStorage.getItem('articles') });
-    this.setState({ drivers : localStorage.getItem('drivers') });
-    this.setState({ headline : localStorage.getItem('headline') });
-    this.setState({ articleText : localStorage.getItem('articleText') });
+    const drivers = [localStorage.getItem('driver0'),localStorage.getItem('driver1'),localStorage.getItem('driver2')]
+    const signals = [localStorage.getItem('signal0'),localStorage.getItem('signal1'),localStorage.getItem('signal2')]
+    this.setState({ searchTerm : localStorage.getItem('searchTerm'),
+                    drivers : drivers, 
+                    signals : signals,
+                    chosenSignal : localStorage.getItem('chosenSignal'),
+                    chosenDriverA : localStorage.getItem('chosenDriverA'),
+                    chosenDriverB : localStorage.getItem('chosenDriverB'),
+                    headline : localStorage.getItem('headline'),
+                    articleText : localStorage.getItem('articleText')});
   }
   resetData = () => {
     this.setState({
       searchTerm: "",
-      articles: new Array(),
+      signals: new Array(),
       drivers: new Array(),
       headline: "",
       articleText: ""});
@@ -49,7 +69,7 @@ class App extends React.Component {
      <Router>
       <div>
         <div style={{fontSize:"8pt", textAlign:"center"}}>
-            <Link to="/">Home </Link> &nbsp;&nbsp;►&nbsp;&nbsp;
+            <Link to="/">Start </Link> &nbsp;&nbsp;►&nbsp;&nbsp;
             <Link to="/one">Step 1 </Link> &nbsp;&nbsp;►&nbsp;&nbsp;
             <Link to="/two">Step 2 </Link> &nbsp;&nbsp;►&nbsp;&nbsp;
             <Link to="/three">Step 3 </Link> &nbsp;&nbsp;►&nbsp;&nbsp;
