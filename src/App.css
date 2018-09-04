@@ -5,6 +5,10 @@ canvas {
   text-align: center;
 }
 
+.hiddenCanvas {
+  display: none;
+}
+
 .canvasAlign {
   width:100%;
   margin-right:auto;
@@ -77,17 +81,6 @@ a {
   padding: 10px;
 }
 
-.reminderboxcentered{
-  text-align:center;  
-  background:#2d2d2d;
-  color: #AAAAAA;
-  font-size: 10pt;
-  max-width: 350px;
-  margin: 0 auto;
-  border-radius: 15px;
-  padding: 10px;
-}
-
 .remindertitle{
   color: #FFFFFF;
   background: #2d2d2d;
@@ -120,21 +113,17 @@ a {
 }
 
 /*
-
 IFTF css files, for reference. I'll pull individual elements as they get used, to try to match style. 
-
 a.more {
 	 color:#0000ff;
 	font-weight: bold;
 }
-
 h4{
 	font-size: 1em;
 	color: #00BAFF;
 	font-family: proxima-nova;
 	font-weight: 700;
 }
-
 body {
   background:#333333;
   margin:24px 0;
@@ -190,11 +179,7 @@ font-style:italic;
 #main {
   padding: 0 24px 0 0;
 }
-
-
 header
-
-
 #header h1 {
   display:none;
 }
@@ -211,7 +196,6 @@ width: 140px;
 border-right: 0;
 float: left;
 }
-
 #header #inputButton {
 display: block;
 height: 23px;
@@ -261,7 +245,6 @@ ul#mainNav {
 ul#mainNav a.current:link, ul#mainNav a.current:visited{
 color: #00baff;
 }
-
 ul#mainNav li {
   float:left;
   padding:7px 30px 7px;
@@ -280,13 +263,11 @@ border:none;
   height:22px;
   border-right:1px solid #dedede;
 }
-
 ul#mainNav li a:link,ul#mainNav li a:visited {
   background:#494949;
   font-size:20px;
   line-height:25px;
   color:#999;
-
   font-family:proxima-nova-extra-condensed;
   font-weight:700;
   
@@ -295,7 +276,6 @@ ul#mainNav li a:link,ul#mainNav li a:visited {
 ul#mainNav li a:hover {
   color:#00BAFF;
 }
-
 #navSearch {
   float:left;
   padding:7px 0 4px 9px;
@@ -318,8 +298,6 @@ ul#mainNav li a:hover {
   width:140px;
   border-right: 0;
   float: left;
-
-
 }
 #navSearch input#topSubmit{
   display: block;
@@ -340,7 +318,6 @@ ul#mainNav li a:hover {
   width:715px;
   margin-bottom:32px;
 }
-
 #sidebar div.news{
   float:left;
   height:24px;
@@ -372,7 +349,6 @@ ul#mainNav li a:hover {
   text-indent: -9999px;
   font-size: 0px;
 }
-
 ul#subNav {
   float:left;
   line-height:24px;
@@ -390,7 +366,6 @@ ul#subNav ul li {
   float:none;
   margin-right:20px;
 }
-
 ul#subNav a:link,ul#subNav a:visited {
   color:#747474;
   font-size:21px;
@@ -418,7 +393,6 @@ padding-top:5px;
 #socialLinks a.last {
   padding: 0 0 0 4px;
 }
-
 #memberLogin {
   position:absolute;
   right:25px;
@@ -433,12 +407,8 @@ padding-top:5px;
 #memberLogin a:hover {
   text-decoration: underline;
 }
-
-
-
  right content area
  
-
 #right p {
   margin-bottom:15px;
 }
@@ -470,7 +440,6 @@ padding-top:5px;
   margin-top:5px;
   line-height: 0.9;
 }
-
 #right h2 a:link, #right h2 a:visited {
   display:block;
   font-weight:normal;
@@ -522,8 +491,6 @@ padding-top:5px;
   font-family:proxima-nova;
   position: absolute;
   top: 5px;
-
-
   background: rgba(0, 186, 255, .95);
   padding: 3px 5px;
   display: none;
@@ -556,7 +523,6 @@ font-size: 12px;
 .feeds h3 {
   border-bottom: 1px solid #ECECEC;
 }
-
 #topPagination {
   position:relative;
   margin-bottom:15px;
@@ -631,7 +597,6 @@ position:static;
 #single img {
   border:5px solid #ECECEC;
 }
-
 .byline {
   margin-bottom:10px;
   color:#999;
@@ -669,7 +634,6 @@ position:static;
   padding:15px 22px 15px 32px;
   left:0;
 }
-
 .billboard p a:link,.billboard p a:visited {
   font-family:proxima-nova;
   font-size:22px;
@@ -679,11 +643,9 @@ position:static;
   width:395px;
   display:block;
   line-height:24px;
-
   padding-right:215px;
   background: url(../images/smallArrow.png) center right no-repeat;
 }
-
 .billboard p strong {
   color:#F09930;
   
@@ -694,7 +656,6 @@ position:static;
   padding: 0 10px;
 }
 #slider #rightArrow{
-
 }
 #slider .leftArrow{
 background: url(../images/IFTF-slider_arrow_left.gif) no-repeat center center transparent; 
@@ -752,7 +713,6 @@ right:0;
 #indexList .article .linkImg a span strong {
   color:#f89b24;
 }
-
 #slider .sliderItem:hover {
 }
 #indexList {
@@ -797,7 +757,6 @@ text-align: left;
 .seeMore a:hover, .news-backlink-wrap a:hover {
   color:#387d97;
 }
-
 .newsPost {
   margin-bottom:15px;
 }
@@ -865,28 +824,21 @@ a.newsLink span {
 a.newsLink span:hover {
   color:#387d97;
 }
-
 #right ul#breadcrumbs, #fullWidth ul#breadcrumbs{
   margin-left:0px;
   margin-bottom:15px;
 }
-
 #right #breadcrumbs li, #fullWidth #breadcrumbs li {
   list-style:none;
   display:inline;
 }
-
 #right #breadcrumbs a.last, #fullWidth #breadcrumbs a.last {
 pointer-events: none;
 cursor: default;
 text-decoration: none;
 color: #F09930;
 }
-
-
 Left sidebar -- is #blogBar on homepage and #sideNav on on 'Our Work'
-
-
 #left h2 {
   color:white;
   font-family:alternate-gothic-no-3-d;
@@ -901,7 +853,6 @@ Left sidebar -- is #blogBar on homepage and #sideNav on on 'Our Work'
   text-decoration:none;
   color:white;
 }
-
 #left h2 span {
   color:#F09930;
 }
@@ -1034,13 +985,11 @@ margin-left: 44px;
   padding-bottom:0;
   margin:0 0 15px;
 }
-
 #sidebar div.csc-default:not(:last-child) {
   border-bottom:1px solid #CCC;
   padding-bottom:0;
   margin:0 0 15px;
 }
-
 #sidebar .messageBox {
   margin-bottom:25px;
 }
@@ -1071,11 +1020,8 @@ margin-left: 44px;
 #sidebar div.csc-textpic div.csc-textpic-single-image img {
   margin:0px;
 }
-
-
  #blogbar
  
-
 #blogBar {
 padding: 10px 20px 31px 16px;
 z-index: 1;
@@ -1130,11 +1076,8 @@ border-left: 10px solid #DEDEDE;
   margin-top:7px;
   line-height: 15px;
 }
-
-
  sidenav
  
-
 #sidebar ul li {
   margin:5px 0;
 }
@@ -1157,7 +1100,6 @@ border-left: 10px solid #DEDEDE;
 #sideNav ul li.hassub a:hover {
   color:#00BAFF;
 }
-
 #sideNav  a.featured:link,#sideNav a.featured:visited {
   margin:0 0 4px;
   font-size:20px;
@@ -1174,26 +1116,21 @@ border-left: 10px solid #DEDEDE;
   width:15px;
   height:15px;
 }
-
 #sideNav ul li.hassub div.navInactive {
 background:url(../images/sideNav_plus.gif) no-repeat left 1px;
 }
-
 #sideNav ul li.hassub div.navActive {
 background:url(../images/sideNav_minus.gif) no-repeat left 1px;
 }
-
 #sideNav p.sideNavP {
   padding-left:17px;
 }
 #sideNav li.hidden ul {
     display: none;
 }
-
 #sideNav li.hassub ul {
   padding-left:15px;
 }
-
 #sideNav ul li.issub a:link,#sideNav ul li.issub a:visited {
   margin:0 0 4px;
   font-size:20px;
@@ -1207,7 +1144,6 @@ background:url(../images/sideNav_minus.gif) no-repeat left 1px;
 #sideNav ul li.issub a:hover{
   color:#00BAFF;
 }
-
 #sideNav ul li a:link,#sideNav ul li a:visited {
   margin:0 0 4px;
   font-size:20px;
@@ -1228,11 +1164,7 @@ background:url(../images/sideNav_minus.gif) no-repeat left 1px;
 #sideNav ul ul li a:hover {
   color: #00baff;
 }
-
-
 Full Width Template
-
-
 #fullWidth {
   background:#FFFFFF;
   border-left:10px solid #ECECEC;
@@ -1302,7 +1234,6 @@ margin:0!important;
 padding:0!important;}
  
 Contact Form
-
 .csc-mailform li {
   padding: 5px 0 5px !important;
   width: 285px;
@@ -1314,9 +1245,7 @@ Contact Form
   border: 1px solid #999;
   background: url(../images/DownTriangleIcon.png) no-repeat right center;
 }
-
  #footer 
-
 #footer {
   margin-left:25px;
   margin-top:35px;
@@ -1330,7 +1259,6 @@ Contact Form
 #footer a:link,#footer a:visited {
   color:#999999;
   text-decoration:none;
-
 }
 #footer a:link strong,#footer a:visited strong {
   color:#F09930;
@@ -1358,9 +1286,6 @@ Contact Form
 #footer strong{
 font-weight: bold;
 }
-
-
-
 #joinTheFutureLink a:link,#joinTheFutureLink a:visited {
   display:block;
   color:#fff;
@@ -1373,28 +1298,18 @@ font-weight: bold;
   text-align:center;
   background: url(../images/joinTheFutureArrow.jpg) no-repeat 165px center #00baff;
 }
-
-
     Utility
-
-
 .leftFillerSpace{
 background: #ECECEC;
 border-left: 10px solid #DEDEDE;
-
 }
-
 .clear{
   clear:both;
 }
 .current, a.current{
 color: #00baff!important
 }
-
-
 Slider Code
-
-
 .slider{
             position:relative;
             margin-bottom:15px;
@@ -1415,7 +1330,6 @@ Slider Code
           
           
           
-
           .slider .rightArrow{
             background: url(../images/IFTF-slider_arrow_right.gif) no-repeat center center transparent; 
             border-left: 2px solid #F09C35;
@@ -1430,25 +1344,21 @@ Slider Code
             border-left: 2px solid #f2f0e8;
   margin-right:12px;
           }
-
           .slider-frame{
             float:left;
             position:relative;
             overflow:hidden;
             width:670px;
           }
-
           .slider ul{
             width:5000px;
             height:160px;
             position:relative;
           }
-
           .slider li{
             float:left;  
             margin:0 0 4px 11px;
           }
-
           .slider a{
             position:relative;
             width:190px;
@@ -1492,9 +1402,6 @@ Slider Code
           .slider .disabled{
             cursor: default;
           }
-
-
-
 #right ul {
   list-style: disc;
   margin-left: 35px;
@@ -1558,7 +1465,6 @@ Centered
   margin-bottom: 22px;
   padding: 0 20px;
 }
-
 .peopleImage {
 float: left;
 margin-right: 41px;
@@ -1569,7 +1475,6 @@ text-align: left;
 margin-bottom: 30px;
 padding-left: 30px;
 }
-
 #right .peopleImage li {
   width: 120px;
 }
@@ -1588,12 +1493,10 @@ Center
   display: block;
   margin-bottom:5px;
 }
-
 #right .people p {
   margin-left: 115px;
   margin-bottom: 3px;
 }
-
 #right .people p.bodytext {
   font-style: italic;
   margin-bottom: 4px;
@@ -1607,11 +1510,9 @@ Center
   padding-left: 0px;
   font-family:proxima-nova;
 }
-
 .focus #blogBar a:hover, .focus #sidebar a:hover, .focus #sidebar .focusLeftNav a:hover {
   color:#387d97;
 }
-
 .focus .focusBoxPost a:link, .focus .focusBoxPost a:visited {
   color: #00BAFF;
   font-size: 13px;
@@ -1621,7 +1522,6 @@ Center
   font-family:proxima-nova;
   font-weight:normal !important;
 }
-
 .focus .focusBoxPost a:hover {
   color:#387d97;
 }
@@ -1653,7 +1553,6 @@ color:#20BBFC;
 .people ul{
   list-style:none!important;
 }
-
 #right .twitter {
   display:inline-block;
 }
@@ -1664,24 +1563,19 @@ color:#20BBFC;
 .news-backlink-wrap {
 padding-top: 10px;
 }
-
 i {
   font-style:italic;
 }
-
 #right .csc-header-n2 h2, #right .csc-header-n3 h2, #right .csc-header-n4 h2, #right .csc-header-n5 h2, #right .csc-header-n6 h2, #right .csc-header-n7 h2, #right .csc-header-n8 h2, #right .csc-header-n9 h2, #right .csc-header-n10 h2{
   line-height: 50px;
 }
-
 .indent{
 margin-left:30px;
 }
-
 blockquote{
 margin-left:30px;
 margin-right:30px;
 }
-
 #sideNav ul ul li.active p a {
 margin: 5px 0;
 text-transform: uppercase;
@@ -1694,12 +1588,10 @@ padding-left: 44px;
   padding:0;
   list-style:none;
 }
-
 .tx-solr .results-highlight {
   color: #fff;
   background-color: #00baff;
 }
-
 .inthenews #FullWidthNews .newsPost p{
  float: none;
  width: 100%;
@@ -1707,63 +1599,47 @@ padding-left: 44px;
 .inthenews .newsPost{  
   margin-bottom:25px;
 }
-
-
 #subNav > li.:last-child {
   margin-right: 0 !important;
 }
-
-
 #subNav > li:last-child a {
   color:#F09930 !important;
 }
-
 #subNav > li:last-child a:hover {
   color:#00baff !important;
 }
-
 .input_tiny {
   width: 50px;
 }
-
 .input_small {
   width: 100px;
 }
-
 .input_medium {
   width: 150px;
 }
-
 .input_large {
   width: 200px;
 }
-
 .input_xlarge {
   width: 250px;
 }
-
 .input_xxlarge {
   width: 300px;
 }
-
 .input_full {
   width: 100%;
 }
-
 .input_full_wrap {
   display: block;
   padding-right: 8px;
 }
-
 ::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
-
 input[type="search"]::-webkit-search-decoration {
   display: none;
 }
-
 input[type="radio"],
 input[type="checkbox"] {
   position: relative;
@@ -1772,7 +1648,6 @@ input[type="checkbox"] {
   top: 0 \0;
   *top: -3px;
 }
-
 @media (-webkit-min-device-pixel-ratio: 1) and (max-device-width: 1024px) {
   input[type="radio"],
   input[type="checkbox"] {
@@ -1801,7 +1676,6 @@ textarea {
   margin: 0;
   vertical-align: middle;
 }
-
 button:focus,
 input:focus,
 select:focus,
@@ -1812,7 +1686,6 @@ textarea:focus {
   box-shadow: #0066ff 0 0 7px 0;
   z-index: 1;
 }
-
 input[type="file"]:focus, input[type="file"]:active,
 input[type="radio"]:focus,
 input[type="radio"]:active,
@@ -1823,7 +1696,6 @@ input[type="checkbox"]:active {
   -o-box-shadow: none;
   box-shadow: none;
 }
-
 button,
 input[type="reset"],
 input[type="submit"],
@@ -1888,12 +1760,10 @@ input[type="button"]:active {
   box-shadow: inset rgba(0, 0, 0, 0.25) 0 1px 2px 0;
   border-color: #999999 #bbbbbb #dddddd;
 }
-
 button {
   *padding-top: 1px;
   *padding-bottom: 1px;
 }
-
 textarea,
 select,
 input[type="date"],
@@ -1957,7 +1827,6 @@ input[type="url"][disabled],
 input[type="week"][disabled] {
   background-color: #eeeeee;
 }
-
 button[disabled],
 input[disabled],
 select[disabled],
@@ -1975,34 +1844,28 @@ textarea[disabled] {
   color: #888888;
   cursor: default;
 }
-
 ::-webkit-input-placeholder {
   color: #888888;
 }
-
 input:-moz-placeholder,
 textarea:-moz-placeholder {
   color: #888888;
 }
-
 input.placeholder_text,
 textarea.placeholder_text {
   color: #888888;
 }
-
 :invalid {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   -o-box-shadow: none;
   box-shadow: none;
 }
-
 textarea,
 select[size],
 select[multiple] {
   height: auto;
 }
-
 @media (-webkit-min-device-pixel-ratio: 0) {
   select {
     background-image: url('../images/select_arrow.gif');
@@ -2010,13 +1873,11 @@ select[multiple] {
     background-position: right center;
     padding-right: 20px;
   }
-
   select[size],
   select[multiple] {
     background-image: none;
     padding: 0;
   }
-
   ::-webkit-validation-bubble-message {
     -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 5px 0;
     box-shadow: rgba(0, 0, 0, 0.5) 0 0 5px 0;
@@ -2030,7 +1891,6 @@ select[multiple] {
     text-shadow: black 0 0 1px;
     height: 16px;
   }
-
   ::-webkit-validation-bubble-arrow,
   ::-webkit-validation-bubble-top-outer-arrow,
   ::-webkit-validation-bubble-top-inner-arrow {
@@ -2046,13 +1906,11 @@ textarea {
   resize: vertical;
   width: 100%;
 }
-
 optgroup {
   color: black;
   font-style: normal;
   font-weight: normal;
 }
-
 .ie6_button,
 * html button {
   background: #dddddd url('../images/button.png') repeat-x;
@@ -2065,12 +1923,10 @@ optgroup {
   overflow: visible;
   width: auto;
 }
-
 * html button {
   padding-top: 1px;
   padding-bottom: 1px;
 }
-
 .ie6_input,
 * html textarea,
 * html select {
@@ -2083,19 +1939,15 @@ optgroup {
   font-family: Arial, sans-serif;
   vertical-align: top;
 }
-
 * html select {
   margin-top: 1px;
 }
-
 .placeholder_text,
 .ie6_input_disabled,
 .ie6_button_disabled {
   color: #888888;
 }
-
 .ie6_input_disabled {
   background: #eeeeee;
 }
-
 */

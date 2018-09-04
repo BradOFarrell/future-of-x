@@ -2,6 +2,16 @@ import * as React from 'react';
 import './App.css';
 import { Route, Redirect } from 'react-router'
 
+let topWidth = 540;
+let topheight = 130;
+
+let newsTitle = '';
+let newsBody = '';
+
+let newTitle = "WWE Releases New “Neon Collection”; Xavier Woods Previews Kingdom Hearts III (VIDEO)";
+let newBody = "Watch as Austin Creed tries out the latest build of the hotly-anticipated Kingdom Hearts III at Gamescom 2018! Grab your Keyblade and make sure you have your friends along for the journey, it's almost time to return to the wild worlds of the Disney universe!";
+
+
 class StepThree extends React.Component {
   constructor(props) {
     super(props);
@@ -9,46 +19,199 @@ class StepThree extends React.Component {
       articleTitle: false,
       articleBody: false,
     }
+  } 
+  resizeCanvas = () => {
+    const canvas = document.getElementById('canvas');
+    const hiddenCanvas = document.getElementById('hiddenCanvas');
+    const context = canvas.getContext('2d');
+    const hiddenContext = hiddenCanvas.getContext('2d');
+
+
+    console.log(window.innerWidth);
+    canvas.width = 650;
+    canvas.height = 650;
+    
+    
+    if (window.innerWidth <= 450) {
+      context.scale(.2, .2);
+    }
+    if (window.innerWidth <= 585) {
+      context.scale(.4, .4);
+    }
+    if (window.innerWidth <= 885) {
+      context.scale(.75, .75);
+    }
+    else {
+      context.scale(1, 1);
+    }
+
+    this.paintNewspaper();
   }
-  reroll = () =>{
-    this.setState({goBack: true});
+  paintNewspaper() {
+    const canvas = document.getElementById('canvas');
+    const hiddenCanvas = document.getElementById('hiddenCanvas');
+    const context = canvas.getContext('2d');
+    const hiddenContext = hiddenCanvas.getContext('2d');
+    const canvasImageUrl = canvas.toDataURL('image/jpeg', 1.0);
+
+    let title = newsTitle;
+    let body = newsBody;
+    let self = this;
+
+    var imageObj = new Image();
+             
+    imageObj.onload = function() {
+      context.drawImage(imageObj, 0, 0);
+      hiddenContext.drawImage(imageObj, 0, 0);
+
+      self.paintHeadline(context, hiddenContext, title);
+      self.paintBody(context, hiddenContext, body);
+
+      //context.drawImage(hiddenCanvas, 0, 0);
+    };
+    imageObj.src = require("./newspaper.png");
   }
-  randomPrompt = () => {
-    return (<div>hi</div>)
+
+  paintHeadline(context, hiddenContext, headline) {
+    let headlineArray = headline.split(" ");
+
+    context.font = "50px Futura";
+    hiddenContext.font = "50px Futura";
+    context.fillStyle = "gray";
+    hiddenContext.fillStyle = "gray";
+    
+    let headlineOne = '';
+    let headlineTwo = '';
+
+    let headlineOneClosed = false;
+    let headlineTwoClosed = false;
+
+    headlineArray.forEach(headline => {
+
+      if (!headlineOneClosed) {
+        if (context.measureText(headlineOne + headline).width > 500) {
+          headlineOneClosed = true;
+        } 
+        else {
+          headlineOne += headline + ' ';
+          return;
+        }
+      }
+      
+      if (!headlineTwoClosed) {
+        if (context.measureText(headlineTwo + headline).width > 500) {
+          headlineTwoClosed = true;
+        } 
+        else {
+          headlineTwo += headline + ' ';
+          return;
+        }
+      }
+
+    });
+
+    if (headlineOne != '') {
+      context.fillText(headlineOne, 75, 175);
+      hiddenContext.fillText(headlineOne, 75, 175);
+    }
+    if (headlineTwo != '') {
+      context.fillText(headlineTwo, 75, 235);
+      hiddenContext.fillText(headlineTwo, 75, 235);
+    }
+  }
+
+  paintBody(context, hiddenContext, body) {
+    let bodyArray = body.split(" ");
+
+    context.font = "25px Futura";
+    hiddenContext.font = "25px Futura";
+    context.fillStyle = "gray";
+    hiddenContext.fillStyle = "gray";
+
+    let bodyLineOne = '', bodyLineOneClosed = false;
+    let bodyLineTwo = '', bodyLineTwoClosed = false;
+
+    bodyArray.forEach(bodyWord => {
+      if (!bodyLineOneClosed) {
+        if (context.measureText(bodyLineOne + bodyWord + " ").width > 500) {
+          bodyLineOneClosed = true;
+        }
+        else {
+          bodyLineOne += bodyWord + " ";
+          return;
+        }
+      }
+
+      if (!bodyLineTwoClosed) {
+        if (context.measureText(bodyLineTwo + bodyWord + " ").width > 500) {
+          bodyLineTwoClosed = true;
+        }
+        else {
+          bodyLineTwo += bodyWord + " ";
+          return;
+        }
+      }
+    });
+
+    if (bodyLineOne != '') {
+      context.fillText(bodyLineOne, 75, 350);
+    }
+    if (bodyLineTwo != '') {
+      context.fillText(bodyLineTwo, 45, 375);
+    }
+
+  }
+
+  handleHeadlineChange = (e) => {
+    newsTitle = e.target.value;
+    this.paintNewspaper();
+  }
+
+  handleBodyChange = (e) => {
+    newsBody = e.target.value;
+    this.paintNewspaper();
+  }
+
+  downloadCanvas() {
+    const canvas = document.getElementById('canvas');
+    let imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+    var a = document.createElement('a');
+    a.href = imgData;
+    a.download = 'graph.png';
+    a.click();
+  }
+
+  newsPaper(){
+    const canvas = document.getElementById('canvas');
+    const hiddenCanvas = document.getElementById('hiddenCanvas');
+    let imgData = hiddenCanvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+    var a = document.createElement('a');
+    a.href = imgData;
+    a.download = 'graph.png';
+    a.click();
+  }
+  componentWillMount(){
+    const headline =  this.props.get("headline");
+    const articleText = this.props.get("articleText");
+    newsTitle = headline;
+    newsBody = articleText;
+    this.setState({
+      articleTitle: headline,
+      articleBody: articleText});
   }
   componentDidMount(){
-      let newTitle = this.props.get("articleTitle");
-      let newBody = this.props.get("articleBody");
+    document.getElementById("articleTitle").value = this.state.articleTitle;
+    document.getElementById("articleBody").value = this.state.articleBody;;
 
-      newTitle = "WWE Releases New “Neon Collection”; Xavier Woods Previews Kingdom Hearts III (VIDEO)";
-      newBody = "Watch as Austin Creed tries out the latest build of the hotly-anticipated Kingdom Hearts III at Gamescom 2018! Grab your Keyblade and make sure you have your friends along for the journey, it's almost time to return to the wild worlds of the Disney universe!";
 
-      this.setState({articleTitle: newTitle,
-                     articleBody: newBody});
 
-      document.getElementById("articleTitle").value = newTitle;
-      document.getElementById("articleBody").value = newBody;
+    window.addEventListener('resize', this.resizeCanvas, false);
+    window.addEventListener('orientationchange', this.resizeCanvas, false);
 
-      const canvas = document.getElementById('canvas');
-      const context = canvas.getContext('2d');
-      var imageObj = new Image();
-               
-        imageObj.onload = function() {
-          context.drawImage(imageObj, 0, 0);
-        };
-        imageObj.src = require("./newspaper.png");
-      }
-  newsPaper(){
-
+    this.paintNewspaper();
   }
   render() {
-    {
-      if(this.state.nextPage){
-        return (<Redirect to="/four"/>)
-      } else if(this.state.goBack) {
-        return (<Redirect to="/one"/>)
-      } else {
-        return (
+  return (
 <div className="App">
   <div className="jumbotron jumbotron-fluid">
     <div className="container">
@@ -57,18 +220,24 @@ class StepThree extends React.Component {
       <br/>
 
       <div className="maintext">
-        <p>Forecasting the future is often about stacking up seemingly unrelated information to create something new. Juxtaposition and combination help us create new lenses for identifying possibilities.</p>
-        <p>This tool will take signals and drivers collected on the previous steps and combine them randomly. You can use this as a prompt to write a headline for the future.</p>    
+        <p>Front page news from the future can bring forecasts to life! Headlines of the futrue distill complex foresight into crisp, evocative, sharable messages, in a format that is accessible to nearly everyone. </p>
+        <p>On this final step, we put everything together and into one big graphic. Edit the text as you see fit. When you're done, you can save the image to your device.</p>    
       </div>
-
+    
       <div className="reminderbox">
       <form onSubmit={this.handleSubmit}>
-      <input type="text" size="40" placeholder="Headline (e.g. 'Astronauts Land On Mars')" className="inputText" id="articleTitle"/><br/><br/>
-      <textarea rows="4" cols="40" id="articleBody">Text here</textarea><br/><br/>
+      <input type="text" size="40" onChange={this.handleHeadlineChange} placeholder="Headline (e.g. 'Astronauts Land On Mars')" className="inputText" id="articleTitle"/><br/><br/>
+      <textarea rows="4" cols="40" onChange={this.handleBodyChange} id="articleBody">{this.state.articleText}</textarea><br/><br/>
       </form>
       </div>
 
-      <canvas id="canvas" width="640" height="640" style={{backgroundColor: "ffffff"}}/>
+      <div className="responsebox">
+      <span className="warnerror" id="warn"></span><br/>
+      <p id="saveButton" className="btn btn-primary" onClick={this.newsPaper}>Save Image</p><br/>
+      </div>
+
+      <canvas id="canvas" data-paper-resize width={window.innerWidth*.75} height={window.innerHeight*.5} height="640" style={{backgroundColor: "ffffff"}}/>
+      <canvas id="hiddenCanvas" className="hiddenCanvas" width="640" height="640" style={{backgroundColor: "ffffff"}}/>
 
       <br/>
       <div className="responsebox">
@@ -89,9 +258,7 @@ class StepThree extends React.Component {
     <p className="btn btn-primary"  onClick={this.validateNext}>Next Step</p><br/>
   </div>
 </div> 
-        );   
-      }     
-    }
+    );   
   }
 }
 
