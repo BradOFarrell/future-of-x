@@ -20,33 +20,6 @@ class StepThree extends React.Component {
       articleBody: false,
     }
   } 
-  resizeCanvas = () => {
-    const canvas = document.getElementById('canvas');
-    const hiddenCanvas = document.getElementById('hiddenCanvas');
-    const context = canvas.getContext('2d');
-    const hiddenContext = hiddenCanvas.getContext('2d');
-
-
-    console.log(window.innerWidth);
-    canvas.width = 650;
-    canvas.height = 650;
-    
-    
-    if (window.innerWidth <= 450) {
-      context.scale(.2, .2);
-    }
-    if (window.innerWidth <= 585) {
-      context.scale(.4, .4);
-    }
-    if (window.innerWidth <= 885) {
-      context.scale(.75, .75);
-    }
-    else {
-      context.scale(1, 1);
-    }
-
-    this.paintNewspaper();
-  }
   paintNewspaper() {
     const canvas = document.getElementById('canvas');
     const hiddenCanvas = document.getElementById('hiddenCanvas');
@@ -60,6 +33,8 @@ class StepThree extends React.Component {
 
     var imageObj = new Image();
              
+    context.scale(0.5, 0.5);
+
     imageObj.onload = function() {
       context.drawImage(imageObj, 0, 0);
       hiddenContext.drawImage(imageObj, 0, 0);
@@ -283,9 +258,6 @@ class StepThree extends React.Component {
     document.getElementById("articleTitle").value = this.state.articleTitle;
     document.getElementById("articleBody").value = this.state.articleBody;;
 
-    window.addEventListener('resize', this.resizeCanvas, false);
-    window.addEventListener('orientationchange', this.resizeCanvas, false);
-
     this.paintNewspaper();
   }
   render() {
@@ -314,7 +286,7 @@ class StepThree extends React.Component {
       <p id="saveButton" className="btn btn-primary" onClick={this.newsPaper}>Save Image</p><br/>
       </div>
 
-      <canvas id="canvas" data-paper-resize width={window.innerWidth*.75} height={window.innerHeight*.5} height="640" style={{backgroundColor: "ffffff"}}/>
+      <canvas id="canvas"  width="320" height="320" style={{backgroundColor: "ffffff"}}/>
       <canvas id="hiddenCanvas" className="hiddenCanvas" width="640" height="640" style={{backgroundColor: "ffffff"}}/>
 
       <br/>
@@ -329,11 +301,6 @@ class StepThree extends React.Component {
         </p>    
       </div>
     </div>
-  </div>
-
-  <div className="responsebox">
-    <span className="warnerror" id="warn"></span><br/>
-    <p className="btn btn-primary"  onClick={this.validateNext}>Next Step</p><br/>
   </div>
 </div> 
     );   
