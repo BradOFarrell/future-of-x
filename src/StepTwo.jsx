@@ -131,7 +131,7 @@ class StepTwo extends React.Component {
       return (<p><br/>⌛ Searching "{this.state.searchTerm}" on Google News...</p>)
     } else {
       if(this.state.newsfeed[0]){
-        return (<canvas id="cloudCanvas" width="335" height="300"/>);
+        return (<canvas id="cloudCanvas" width="300" height="300"/>);
       } else {
         return (<p><br/>Use the search box above to generate headlines.</p>);
       }
