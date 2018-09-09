@@ -32,8 +32,6 @@ class StepThree extends React.Component {
     let self = this;
 
     var imageObj = new Image();
-             
-    context.scale(0.5, 0.5);
 
     imageObj.onload = function() {
       context.drawImage(imageObj, 0, 0);
@@ -275,6 +273,10 @@ class StepThree extends React.Component {
 
     window.addEventListener('resize', this.resizeCanvas, false);
     window.addEventListener('orientationchange', this.resizeCanvas, false);
+
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    context.scale(0.5, 0.5);
 
     this.paintNewspaper();
   }
