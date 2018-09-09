@@ -224,7 +224,7 @@ class StepThree extends React.Component {
     let imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
     var a = document.createElement('a');
     a.href = imgData;
-    a.download = 'graph.png';
+    a.download = 'futureNews.png';
     a.click();
   }
 
@@ -233,9 +233,10 @@ class StepThree extends React.Component {
     const hiddenCanvas = document.getElementById('hiddenCanvas');
     let imgData = hiddenCanvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
     var a = document.createElement('a');
-    a.href = imgData;
-    a.download = 'graph.png';
-    a.click();
+    //a.href = imgData;
+    //a.download = 'futureNews.png';
+    window.open(imgData);
+    // a.click();
   }
   componentWillMount(){
     let headline =  this.props.get("headline");
