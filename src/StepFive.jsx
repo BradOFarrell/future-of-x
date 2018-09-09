@@ -237,6 +237,21 @@ class StepThree extends React.Component {
     a.download = 'futureNews.png';
     a.click();
   }
+
+  resizeCanvas = () => {
+    const canvas = document.getElementById('canvas');
+    const hiddenCanvas = document.getElementById('hiddenCanvas');
+    const context = canvas.getContext('2d');
+    const hiddenContext = hiddenCanvas.getContext('2d');
+    console.log(window.innerWidth);
+    canvas.width = 320;
+    canvas.height = 320;
+    
+    context.scale(1,1);
+    
+     this.paintNewspaper();
+  }
+
   componentWillMount(){
     let headline =  this.props.get("headline");
     let articleText = this.props.get("articleText");
@@ -256,7 +271,10 @@ class StepThree extends React.Component {
   }
   componentDidMount(){
     document.getElementById("articleTitle").value = this.state.articleTitle;
-    document.getElementById("articleBody").value = this.state.articleBody;;
+    document.getElementById("articleBody").value = this.state.articleBody;
+
+    window.addEventListener('resize', this.resizeCanvas, false);
+    window.addEventListener('orientationchange', this.resizeCanvas, false);
 
     this.paintNewspaper();
   }

@@ -3,6 +3,8 @@
 canvas {
   display:inline;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hiddenCanvas {
