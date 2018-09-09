@@ -221,7 +221,7 @@ class StepThree extends React.Component {
 
   downloadCanvas() {
     const canvas = document.getElementById('canvas');
-    let imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+    let imgData = canvas.toDataURL('image/png');
     var a = document.createElement('a');
     a.href = imgData;
     a.download = 'futureNews.png';
@@ -231,12 +231,11 @@ class StepThree extends React.Component {
   newsPaper(){
     const canvas = document.getElementById('canvas');
     const hiddenCanvas = document.getElementById('hiddenCanvas');
-    let imgData = hiddenCanvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+    let imgData = hiddenCanvas.toDataURL('image/png');
     var a = document.createElement('a');
-    //a.href = imgData;
-    //a.download = 'futureNews.png';
-    window.open(imgData);
-    // a.click();
+    a.href = imgData;
+    a.download = 'futureNews.png';
+    a.click();
   }
   componentWillMount(){
     let headline =  this.props.get("headline");
