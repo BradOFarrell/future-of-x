@@ -39,8 +39,6 @@ class StepThree extends React.Component {
 
       self.paintHeadline(context, hiddenContext, title);
       self.paintBody(context, hiddenContext, body);
-
-      //context.drawImage(hiddenCanvas, 0, 0);
     };
     imageObj.src = require("./newspaper.png");
   }
@@ -53,8 +51,8 @@ class StepThree extends React.Component {
 
     context.font = "50px Futura";
     hiddenContext.font = "50px Futura";
-    context.fillStyle = "gray";
-    hiddenContext.fillStyle = "gray";
+    context.fillStyle = "#7e6f6d";
+    hiddenContext.fillStyle = "#7e6f6d";
     
     let headlineOne = '';
     let headlineTwo = '';
@@ -107,8 +105,8 @@ class StepThree extends React.Component {
 
     context.font = "25px Futura";
     hiddenContext.font = "25px Futura";
-    context.fillStyle = "gray";
-    hiddenContext.fillStyle = "gray";
+    context.fillStyle = "#7e6f6d";
+    hiddenContext.fillStyle = "#7e6f6d";
 
     let bodyLineOne = '', bodyLineOneClosed = false;
     let bodyLineTwo = '', bodyLineTwoClosed = false;
@@ -116,6 +114,13 @@ class StepThree extends React.Component {
     let bodyLineFour = '', bodyLineFourClosed = false;
     let bodyLineFive = '', bodyLineFiveClosed = false;
     let bodyLineSix = '', bodyLineSixClosed = false;
+
+    let bodyLineSeven = '', bodyLineSevenClosed = false;
+    let bodyLineEight = '', bodyLineEightClosed = false;
+    let bodyLineNine = '', bodyLineNineClosed = false;
+    let bodyLineTen = '', bodyLineTenClosed = false;
+    let bodyLineEleven = '', bodyLineElevenClosed = false;
+    let bodyLineTwelve = '', bodyLineTwelveClosed = false;
 
     if (bodyArray != null) {
       bodyArray.forEach(bodyWord => {
@@ -178,32 +183,155 @@ class StepThree extends React.Component {
             return;
           }
         }
+
+        if (!bodyLineSevenClosed) {
+          if (context.measureText(bodyLineSeven + bodyWord + " ").width > 500) {
+            bodyLineSevenClosed = true;
+          }
+          else {
+            bodyLineSeven += bodyWord + " ";
+            return;
+          }
+        }
+
+        if (!bodyLineEightClosed) {
+          if (context.measureText(bodyLineEight + bodyWord + " ").width > 500) {
+            bodyLineEightClosed = true;
+          }
+          else {
+            bodyLineEight += bodyWord + " ";
+            return;
+          }
+        }
+
+        if (!bodyLineNineClosed) {
+          if (context.measureText(bodyLineNine + bodyWord + " ").width > 500) {
+            bodyLineNineClosed = true;
+          }
+          else {
+            bodyLineNine += bodyWord + " ";
+            return;
+          }
+        }
+
+        if (!bodyLineTenClosed) {
+          if (context.measureText(bodyLineTen + bodyWord + " ").width > 500) {
+            bodyLineTenClosed = true;
+          }
+          else {
+            bodyLineTen += bodyWord + " ";
+            return;
+          }
+        }
+
+        if (!bodyLineElevenClosed) {
+          if (context.measureText(bodyLineEleven + bodyWord + " ").width > 500) {
+            bodyLineElevenClosed = true;
+          }
+          else {
+            bodyLineEleven += bodyWord + " ";
+            return;
+          }
+        }
+
+        if (!bodyLineTwelveClosed) {
+          if (context.measureText(bodyLineTwelve + bodyWord + " ").width > 500) {
+            bodyLineTwelveClosed = true;
+          }
+          else {
+            bodyLineTwelve += bodyWord + " ";
+            return;
+          }
+        }
+
       });
     }
 
+   //Base values for drawing the body text
+   let bodyX = 80;
+   let bodyY = 300;
+   let bodyYModifier = 25;
+
     if (bodyLineOne != '') {
-      context.fillText(bodyLineOne, 75, 350);
-      hiddenContext.fillText(bodyLineOne, 75, 350);
+      context.fillText(bodyLineOne, bodyX + 20, bodyY);
+      hiddenContext.fillText(bodyLineOne, bodyX, bodyY);
+
+      bodyY += bodyYModifier;
     }
+
     if (bodyLineTwo != '') {
-      context.fillText(bodyLineTwo, 45, 375);
-      hiddenContext.fillText(bodyLineTwo, 45, 375);
+      context.fillText(bodyLineTwo, bodyX, bodyY);
+      hiddenContext.fillText(bodyLineTwo, bodyX, bodyY);
+
+      bodyY += bodyYModifier;
     }
+
     if (bodyLineThree != '') {
-      context.fillText(bodyLineThree, 45, 400);
-      hiddenContext.fillText(bodyLineThree, 45, 400);
+      context.fillText(bodyLineThree, bodyX, bodyY);
+      hiddenContext.fillText(bodyLineThree, bodyX, bodyY);
+
+      bodyY += bodyYModifier;
     }
+
     if (bodyLineFour != '') {
-      context.fillText(bodyLineFour, 45, 425);
-      hiddenContext.fillText(bodyLineFour, 45, 425);
+      context.fillText(bodyLineFour, bodyX, bodyY);
+      hiddenContext.fillText(bodyLineFour, bodyX, bodyY);
+
+      bodyY += bodyYModifier;
     }
+
     if (bodyLineFive != '') {
-      context.fillText(bodyLineFive, 45, 450);
-      hiddenContext.fillText(bodyLineFive, 45, 450);
+      context.fillText(bodyLineFive, bodyX, bodyY);
+      hiddenContext.fillText(bodyLineFive, bodyX, bodyY);
+
+      bodyY += bodyYModifier;
     }
+
     if (bodyLineSix != '') {
-      context.fillText(bodyLineSix, 45, 475);
-      hiddenContext.fillText(bodyLineSix, 45, 475);
+      context.fillText(bodyLineSix, bodyX, bodyY);
+      hiddenContext.fillText(bodyLineSix, bodyX, bodyY);
+
+      bodyY += bodyYModifier;
+    }
+
+    if (bodyLineSeven != '') {
+      context.fillText(bodyLineSeven, bodyX + 20, bodyY);
+      hiddenContext.fillText(bodyLineSeven, bodyX + 20, bodyY);
+
+      bodyY += bodyYModifier;
+    }
+
+    if (bodyLineEight != '') {
+      context.fillText(bodyLineEight, bodyX, bodyY);
+      hiddenContext.fillText(bodyLineEight, bodyX, bodyY);
+
+      bodyY += bodyYModifier;
+    }
+
+    if (bodyLineNine != '') {
+      context.fillText(bodyLineNine, bodyX, bodyY);
+      hiddenContext.fillText(bodyLineNine, bodyX, bodyY);
+
+      bodyY += bodyYModifier;
+    }
+
+    if (bodyLineTen != '') {
+      context.fillText(bodyLineTen, bodyX, bodyY);
+      hiddenContext.fillText(bodyLineTen, bodyX, bodyY);
+
+      bodyY += bodyYModifier;
+    }
+
+    if (bodyLineEleven != '') {
+      context.fillText(bodyLineEleven, bodyX, bodyY);
+      hiddenContext.fillText(bodyLineEleven, bodyX, bodyY);
+      
+      bodyY += bodyYModifier;
+    }
+
+    if (bodyLineTwelve != '') {
+      context.fillText(bodyLineTwelve, bodyX, bodyY);
+      hiddenContext.fillText(bodyLineTwelve, bodyX, bodyY);
     }
   }
 
