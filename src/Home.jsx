@@ -75,7 +75,7 @@ class Home extends React.Component {
       </div>
       <br/>  
       <div className="maintext">
-        <p>This application is a collection of Futures Thinking tools, adapted from the <a href="http://www.iftf.org/futuresthinking/">IFTF Futures Thinking Toolkit</a>. As you progress through each tool, you'll be building a complex model for the future that will be displayed on the final step.</p> 
+        <p>This application is a collection of Futures Thinking tools, adapted from the <a href="http://www.iftf.org/futuresthinking/">IFTF Futures Thinking Toolkit</a>. As you progress through each tool, you'll be building a complex model for the future that will be turned into a newspaper mockup on the final step.</p> 
         <br/> 
       </div>
     </div>

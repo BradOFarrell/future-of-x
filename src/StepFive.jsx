@@ -490,7 +490,7 @@ class StepFive extends React.Component {
       <br/>
 
       <div className="maintext">
-        <p>Front page news from the future can bring forecasts to life! Headlines of the futrue distill complex foresight into crisp, evocative, sharable messages, in a format that is accessible to nearly everyone. </p>
+        <p>Front page news from the future can bring forecasts to life! Headlines of the future distill complex foresight into crisp, evocative, sharable messages, in a format that is accessible to nearly everyone. </p>
         <p>On this final step, we put everything together and into one big graphic. Edit the text as you see fit. When you're done, you can save the image to your device.</p>    
       </div>
     
