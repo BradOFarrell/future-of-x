@@ -1,6 +1,8 @@
 import * as React from 'react';
 import './App.css';
 import { Route, Redirect } from 'react-router'
+import example from './example.png';
+
 
 class Home extends React.Component {
   constructor(props) {
@@ -59,7 +61,8 @@ class Home extends React.Component {
       <br/>
 
       <div className="maintext">
-        <p>This web-app will help you develop a unique perspective on the future of an industry, a company, or even your own personal future. For example, you could use it forecast The Future of Cellphones, The Future of Baseball, or The Future of San Francisco.</p> 
+        <p>This web-app will help you develop a headline describing a unique perspective on the future of an industry, a company, or even your own personal future. For example, you could use it forecast The Future of Cellphones, The Future of Baseball, or The Future of San Francisco.</p>
+        <center>Example Headline:<img src={example}/></center>
         <p>Neuroscientists have discovered techniques for increasing our cognitive flexibility, which allows us to imagine new possibilities. These scientific techniques form the basis of Futures Thinking.</p>
       </div>
       <div className="reminderbox">
