@@ -201,7 +201,7 @@ class StepTwo extends React.Component {
   <div className="jumbotron jumbotron-fluid">
     <div className="container">
       <br/>
-      <h2>2: Identify Drivers</h2>
+      <h2>Step 2: Identify Drivers</h2>
 
       <div className="maintext">
       <br/>
