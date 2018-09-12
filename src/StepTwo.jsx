@@ -24,7 +24,7 @@ class StepTwo extends React.Component {
     }
   }
   cloudCanvas(query, newsfeed) {
-    let removedWords = [" s ", " but "," and", " yet "," of ", " the ", " in ", " on ", " at ", " to ", " a ", " an ", " for ", " is ", " will ", " be ", " news ", " if ", " about ", " after "," shit "," fuck "," undefined "];
+    let removedWords = [" s ", " but "," and", " yet "," of "," from "," by "," with "," the "," in ", " on ", " at ", " to ", " a ", " an ", " for ", " is ", " will ", " be ", " news ", " if ", " about ", " after "," shit "," fuck "," undefined "];
     let processedTitles = '';
     let wordCollection = [];
     let mostCommonWords;
