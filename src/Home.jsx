@@ -13,9 +13,11 @@ class Home extends React.Component {
     }
   }
   startNew = () => {
+    window.scrollTo(0,0);
     this.setState({nextPage: true});
   }
   startOver = () => {
+    window.scrollTo(0,0);
     this.props.reset();
     this.setState({nextPage: true});
   }
