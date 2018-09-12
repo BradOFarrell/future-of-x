@@ -51,9 +51,9 @@ class StepTwo extends React.Component {
     // Remove multiple spaces
     processedTitles = processedTitles.replace(/ +(?= )/g,'');
 
-    // Turn headline into lis
+    // Turn headline into list
     processedTitles.split(' ').forEach(word => {
-      wordCollection.push(word)
+      wordCollection.push(word.charAt(0).toUpperCase()+word.substring(1))
     })
 
     mostCommonWords = MostCommon(wordCollection, 100);

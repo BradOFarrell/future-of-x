@@ -18,7 +18,8 @@ class StepFour extends React.Component {
       growthText: "",
       collapseText: "",
       constraintText: "",
-      articleText: ""
+      articleText: "",
+      articleType: "growth"
     }
   }
   checkboxChange(checkNum){
@@ -30,24 +31,28 @@ class StepFour extends React.Component {
           document.getElementById("box1").checked = false
           document.getElementById("box2").checked = false
           document.getElementById("box3").checked = false
+          this.setState({articleType: "transformation"})
         break;
         case 1:
           chosenArticleText = this.state.growthText
           document.getElementById("box0").checked = false
           document.getElementById("box2").checked = false
           document.getElementById("box3").checked = false
+          this.setState({articleType: "growth"})
         break;
         case 2:
           chosenArticleText = this.state.collapseText
           document.getElementById("box0").checked = false
           document.getElementById("box1").checked = false
           document.getElementById("box3").checked = false
+          this.setState({articleType: "collapse"})
         break;
         case 3:
           chosenArticleText = this.state.constraintText
           document.getElementById("box0").checked = false
           document.getElementById("box1").checked = false
           document.getElementById("box2").checked = false
+          this.setState({articleType: "constraint"})
         break;
       }
     this.setState({articleText: chosenArticleText});
@@ -60,19 +65,19 @@ class StepFour extends React.Component {
 
         <table className="table table-striped table-dark">
                     <tr>
-        <td><input type="checkbox" id="box0" onChange={() => this.checkboxChange(0)}></input></td>
+        <td><input type="radio" id="box0" onChange={() => this.checkboxChange(0)}></input></td>
         <td><span className="highlighted">Transformation</span>:&nbsp;"{this.state.transformationText}"</td>
         </tr>
         <tr>
-        <td><input type="checkbox" id="box1" onChange={() => this.checkboxChange(1)}></input></td>
+        <td><input type="radio" id="box1" onChange={() => this.checkboxChange(1)}></input></td>
         <td><span className="highlighted">Growth</span>:&nbsp;"{this.state.growthText}"</td>
         </tr>
         <tr>
-        <td><input type="checkbox" id="box2" onChange={() => this.checkboxChange(2)}></input></td>
+        <td><input type="radio" id="box2" onChange={() => this.checkboxChange(2)}></input></td>
         <td><span className="highlighted">Collapse</span>:&nbsp;"{this.state.collapseText}"</td>
         </tr>
         <tr>
-        <td><input type="checkbox" id="box3" onChange={() => this.checkboxChange(3)}></input></td>
+        <td><input type="radio" id="box3" onChange={() => this.checkboxChange(3)}></input></td>
         <td><span className="highlighted">Constraint</span>:&nbsp;"{this.state.constraintText}"</td>
         </tr>
         </table>
@@ -89,10 +94,10 @@ class StepFour extends React.Component {
     const chosenDriverB = this.props.get("chosenDriverB");
     const chosenSignal = this.props.get("chosenSignal");
 
-    const transformationText = "A surprising interaction between "+chosenDriverA+" and "+chosenDriverB+" has lead to new possibilities for "+searchTerm+". Recent events, such as '"+chosenSignal+"', seemed to signal a transformative change.";
-    const growthText = "It turns out that "+chosenDriverA+" and "+chosenDriverB+" are joining forces to create explosive growth for "+searchTerm+". Recent events, such as '"+chosenSignal+"', are now being cited as an early signal of progress.";
-    const collapseText = "The unexpected union of "+chosenDriverA+" and "+chosenDriverB+" have had a devastating impact on "+searchTerm+". Recent events, such as '"+chosenSignal+"', are now being considered as a signal of the collapse.";
-    const constraintText = "New restrictions placed on "+searchTerm+" were largely caused by "+chosenDriverA+" and "+chosenDriverB+". Recent events, such as '"+chosenSignal+"', are now being viewed as a signal of the new constraints.";
+    const transformationText = "A surprising interaction between "+chosenDriverA+" and "+chosenDriverB+" has lead to new possibilities for "+searchTerm+". Recent events, such as '"+chosenSignal+"', seemed to foreshadow a transformative change. Experts say the transformation of "+searchTerm+" is a testament to human ingenuity.";
+    const growthText = "It turns out that "+chosenDriverA+" and "+chosenDriverB+" are joining forces to create explosive growth for "+searchTerm+". Recent events, such as '"+chosenSignal+"', are now being cited as an early signal of progress. Experts wonder if continuous growth could lead to new possibilities for "+searchTerm+" in the future.";
+    const collapseText = "The unexpected union of "+chosenDriverA+" and "+chosenDriverB+" have had a devastating impact on "+searchTerm+". Recent events, such as '"+chosenSignal+"', are now being considered as an early warning of the collapse. Experts hope that the collapse of "+searchTerm+" helps us learn how to tackle similar problems in the future.";
+    const constraintText = "New restrictions placed on "+searchTerm+" were largely caused by "+chosenDriverA+" and "+chosenDriverB+". Recent events, such as '"+chosenSignal+"', are now being viewed as a possible cause of the new constraints. Experts are concerned about what the constraints placed on "+searchTerm+" say about our collective values.";
 
     this.setState({
       searchTerm: searchTerm,
@@ -110,6 +115,7 @@ class StepFour extends React.Component {
     if(this.state.articleText){
       window.scrollTo(0,0);
       this.props.update("articleText", this.state.articleText);
+      this.props.update("articleType", this.state.articleType);
       this.setState({nextPage: true});      
     } else {
       document.getElementById("warn").innerHTML = "You must select an option.";

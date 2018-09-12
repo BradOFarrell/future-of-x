@@ -40,7 +40,7 @@ class Home extends React.Component {
   }
   componentWillMount(){
       // String will evaluate as false if empty
-      if(this.props.get("searchTerm")){
+      if(this.props.get("searchTerm") || this.props.get("headline") || this.props.get("articleText")){
         this.setState({firstTime: false});
       } else {
         this.setState({firstTime: true});
@@ -69,9 +69,9 @@ class Home extends React.Component {
       </div>
       <br/>  
       <div className="maintext">
-        <p>This application is a collection of Futures Thinking tools, adapted from the <a href="http://www.iftf.org/futuresthinking/">IFTF Futures Thinking Toolkit</a>. As you progress through each tool, you'll be building a complex model for the future that will be displayed on the final step.</p>    
+        <p>This application is a collection of Futures Thinking tools, adapted from the <a href="http://www.iftf.org/futuresthinking/">IFTF Futures Thinking Toolkit</a>. As you progress through each tool, you'll be building a complex model for the future that will be displayed on the final step.</p> 
+        <br/> 
       </div>
-      <br/> 
     </div>
   </div>
   {this.startButton()}

@@ -19,7 +19,8 @@ class App extends React.Component {
       chosenDriverA: "",
       chosenDriverB: "",
       headline: "",
-      articleText: ""
+      articleText: "",
+      articleType: "growth"
     }
   }
   updateParent = (key, value) => {
@@ -52,7 +53,10 @@ class App extends React.Component {
                     chosenDriverA : localStorage.getItem('chosenDriverA'),
                     chosenDriverB : localStorage.getItem('chosenDriverB'),
                     headline : localStorage.getItem('headline'),
-                    articleText : localStorage.getItem('articleText')});
+                    articleText : localStorage.getItem('articleText'),
+                    articleType : localStorage.getItem('articleType')
+                  
+                  });
   }
   resetData = () => {
     this.setState({
@@ -81,7 +85,7 @@ class App extends React.Component {
         <Route path="/three" render={() => (<StepThree update={this.updateParent} get={this.getParent}/>)} />
         <Route path="/four" render={() =>  (<StepFour  update={this.updateParent} get={this.getParent}/>)} />
         <Route path="/five" render={() =>  (<StepFive  update={this.updateParent} get={this.getParent}/>)} />
-        <Route exact={true} path="/" render={() =>  (<Home reset={this.resetData} get={this.getParent}/>)} />
+        <Route exact={true} path="/" render={() =>  (<Home reset={this.resetData} update={this.updateParent} get={this.getParent}/>)} />
       </div>
     </Router>
     );        

@@ -12,12 +12,14 @@ let newTitle = "WWE Releases New “Neon Collection”; Xavier Woods Previews Ki
 let newBody = "Watch as Austin Creed tries out the latest build of the hotly-anticipated Kingdom Hearts III at Gamescom 2018! Grab your Keyblade and make sure you have your friends along for the journey, it's almost time to return to the wild worlds of the Disney universe!";
 
 
-class StepThree extends React.Component {
+class StepFive extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       articleTitle: false,
       articleBody: false,
+      articleType: "growth", 
+      nextPage: false
     }
   } 
   paintNewspaper() {
@@ -40,7 +42,7 @@ class StepThree extends React.Component {
       self.paintHeadline(context, hiddenContext, title);
       self.paintBody(context, hiddenContext, body);
     };
-    imageObj.src = require("./newspaper.png");
+    imageObj.src = require("./newspaper"+this.state.articleType+".png");
   }
 
   paintHeadline(context, hiddenContext, headline) {
@@ -49,16 +51,19 @@ class StepThree extends React.Component {
       headlineArray = headline.split(" ");
     }
 
-    context.font = "50px Futura";
-    hiddenContext.font = "50px Futura";
-    context.fillStyle = "#7e6f6d";
-    hiddenContext.fillStyle = "#7e6f6d";
+    context.font = "48px Futura";
+    hiddenContext.font = "48px Futura";
+    context.fillStyle = "#4c4343";
+    hiddenContext.fillStyle = "#4c4343";
     
     let headlineOne = '';
     let headlineTwo = '';
 
     let headlineOneClosed = false;
     let headlineTwoClosed = false;
+
+    let headlineOneWidth = 0;
+    let headlineTwoWidth = 0;
 
     if (headlineArray != null) {
       headlineArray.forEach(headline => {
@@ -72,7 +77,7 @@ class StepThree extends React.Component {
             return;
           }
         }
-        
+
         if (!headlineTwoClosed) {
           if (context.measureText(headlineTwo + headline).width > 500) {
             headlineTwoClosed = true;
@@ -86,27 +91,34 @@ class StepThree extends React.Component {
       });
     }
 
-    if (headlineOne != '') {
-      context.fillText(headlineOne, 75, 175);
-      hiddenContext.fillText(headlineOne, 75, 175);
+    headlineOneWidth = context.measureText(headlineOne).width;
+    headlineTwoWidth = context.measureText(headlineTwo).width;        
+
+    let headlineOneOffset = (-1*(headlineOneWidth - 500)/2)+80
+    let headlineTwoOffset = (-1*(headlineTwoWidth - 500)/2)+80
+
+    if (headlineOne != '' && headlineTwo != '') {
+      context.fillText(headlineOne, headlineOneOffset, 195);
+      hiddenContext.fillText(headlineOne, headlineOneOffset, 195);
+      context.fillText(headlineTwo, headlineTwoOffset, 245);
+      hiddenContext.fillText(headlineTwo, headlineTwoOffset, 245);
     }
-    if (headlineTwo != '') {
-      context.fillText(headlineTwo, 75, 235);
-      hiddenContext.fillText(headlineTwo, 75, 235);
+    else if (headlineOne != '' ) {
+      context.fillText(headlineOne, headlineOneOffset, 220);
+      hiddenContext.fillText(headlineOne, headlineOneOffset, 220);
     }
   }
 
   paintBody(context, hiddenContext, body) {
+    //Base values for drawing the body text
+    let bodyX = 80;
+    let bodyY = 300;
+    let bodyYModifier = 28;
 
-    let bodyArray = null;
-    if (body != '' && body != null) {
-      bodyArray = body.split(" ");
-    }
+    body = body + "  ";
 
-    context.font = "25px Futura";
-    hiddenContext.font = "25px Futura";
-    context.fillStyle = "#7e6f6d";
-    hiddenContext.fillStyle = "#7e6f6d";
+    let bigLetter = body.charAt(0).toUpperCase();
+    body = body.substring(1);
 
     let bodyLineOne = '', bodyLineOneClosed = false;
     let bodyLineTwo = '', bodyLineTwoClosed = false;
@@ -122,10 +134,29 @@ class StepThree extends React.Component {
     let bodyLineEleven = '', bodyLineElevenClosed = false;
     let bodyLineTwelve = '', bodyLineTwelveClosed = false;
 
+    let bodyArray = null;
+    if (body != '' && body != null) {
+      bodyArray = body.split(" ");
+    }
+
+    context.fillStyle = "#4c4343";
+    hiddenContext.fillStyle = "#4c4343";
+
+    context.font = "54px Courier";
+    hiddenContext.font = "54px Courier";
+
+    if (bigLetter != '') {
+      context.fillText(bigLetter, bodyX+25, bodyY+15);
+      hiddenContext.fillText(bigLetter, bodyX+25, bodyY+15);
+    }
+
+    context.font = "28px Times New Roman";
+    hiddenContext.font = "28px Times New Roman";
+
     if (bodyArray != null) {
       bodyArray.forEach(bodyWord => {
         if (!bodyLineOneClosed) {
-          if (context.measureText(bodyLineOne + bodyWord + " ").width > 500) {
+          if (context.measureText(bodyLineOne + bodyWord + " ").width > 440) {
             bodyLineOneClosed = true;
           }
           else {
@@ -135,7 +166,7 @@ class StepThree extends React.Component {
         }
 
         if (!bodyLineTwoClosed) {
-          if (context.measureText(bodyLineTwo + bodyWord + " ").width > 500) {
+          if (context.measureText(bodyLineTwo + bodyWord + " ").width > 435) {
             bodyLineTwoClosed = true;
           }
           else {
@@ -155,7 +186,7 @@ class StepThree extends React.Component {
         }
 
         if (!bodyLineFourClosed) {
-          if (context.measureText(bodyLineFour + bodyWord + " ").width > 500) {
+          if (context.measureText(bodyLineFour + bodyWord + " ").width > 320) {
             bodyLineFourClosed = true;
           }
           else {
@@ -165,7 +196,7 @@ class StepThree extends React.Component {
         }
 
         if (!bodyLineFiveClosed) {
-          if (context.measureText(bodyLineFive + bodyWord + " ").width > 500) {
+          if (context.measureText(bodyLineFive + bodyWord + " ").width > 310) {
             bodyLineFiveClosed = true;
           }
           else {
@@ -175,7 +206,7 @@ class StepThree extends React.Component {
         }
 
         if (!bodyLineSixClosed) {
-          if (context.measureText(bodyLineSix + bodyWord + " ").width > 500) {
+          if (context.measureText(bodyLineSix + bodyWord + " ").width > 310) {
             bodyLineSixClosed = true;
           }
           else {
@@ -185,7 +216,7 @@ class StepThree extends React.Component {
         }
 
         if (!bodyLineSevenClosed) {
-          if (context.measureText(bodyLineSeven + bodyWord + " ").width > 500) {
+          if (context.measureText(bodyLineSeven + bodyWord + " ").width > 310) {
             bodyLineSevenClosed = true;
           }
           else {
@@ -195,7 +226,7 @@ class StepThree extends React.Component {
         }
 
         if (!bodyLineEightClosed) {
-          if (context.measureText(bodyLineEight + bodyWord + " ").width > 500) {
+          if (context.measureText(bodyLineEight + bodyWord + " ").width > 310) {
             bodyLineEightClosed = true;
           }
           else {
@@ -247,21 +278,16 @@ class StepThree extends React.Component {
       });
     }
 
-   //Base values for drawing the body text
-   let bodyX = 80;
-   let bodyY = 300;
-   let bodyYModifier = 25;
-
     if (bodyLineOne != '') {
-      context.fillText(bodyLineOne, bodyX + 20, bodyY);
-      hiddenContext.fillText(bodyLineOne, bodyX, bodyY);
+      context.fillText(bodyLineOne, bodyX + 60, bodyY);
+      hiddenContext.fillText(bodyLineOne, bodyX + 60, bodyY);
 
       bodyY += bodyYModifier;
     }
 
     if (bodyLineTwo != '') {
-      context.fillText(bodyLineTwo, bodyX, bodyY);
-      hiddenContext.fillText(bodyLineTwo, bodyX, bodyY);
+      context.fillText(bodyLineTwo, bodyX + 65, bodyY);
+      hiddenContext.fillText(bodyLineTwo, bodyX + 65, bodyY);
 
       bodyY += bodyYModifier;
     }
@@ -295,8 +321,8 @@ class StepThree extends React.Component {
     }
 
     if (bodyLineSeven != '') {
-      context.fillText(bodyLineSeven, bodyX + 20, bodyY);
-      hiddenContext.fillText(bodyLineSeven, bodyX + 20, bodyY);
+      context.fillText(bodyLineSeven, bodyX, bodyY);
+      hiddenContext.fillText(bodyLineSeven, bodyX, bodyY);
 
       bodyY += bodyYModifier;
     }
@@ -345,6 +371,12 @@ class StepThree extends React.Component {
     this.paintNewspaper();
   }
 
+  graphChange = (e) => {
+    this.setState({articleType: e.target.value},()=>{
+      this.paintNewspaper();
+    });
+  }
+
   downloadCanvas() {
     const canvas = document.getElementById('canvas');
     let imgData = canvas.toDataURL('image/png');
@@ -364,51 +396,91 @@ class StepThree extends React.Component {
     a.click();
   }
 
-  resizeCanvas = () => {
-    const canvas = document.getElementById('canvas');
-    const hiddenCanvas = document.getElementById('hiddenCanvas');
-    const context = canvas.getContext('2d');
-    const hiddenContext = hiddenCanvas.getContext('2d');
-    console.log(window.innerWidth);
-    canvas.width = 320;
-    canvas.height = 320;
-    
-    context.scale(1,1);
-    
-     this.paintNewspaper();
+  dropdown(){
+    if(this.state.articleType == "transformation"){
+      return (
+        <select class="btn btn-secondary dropdown-toggle"  onChange={this.graphChange}>
+        <option value="transformation" selected>Transformation</option>
+        <option value="growth">Growth</option>
+        <option value="collapse">Collapse</option>
+        <option value="constraint">Constraint</option>
+      </select>
+      );
+    } else if(this.state.articleType == "growth"){
+      return (
+        <select class="btn btn-secondary dropdown-toggle"  onChange={this.graphChange}>
+        <option value="transformation">Transformation</option>
+        <option value="growth" selected>Growth</option>
+        <option value="collapse">Collapse</option>
+        <option value="constraint">Constraint</option>
+      </select>
+      );
+    } else if(this.state.articleType == "collapse"){
+      return (
+        <select class="btn btn-secondary dropdown-toggle"  onChange={this.graphChange}>
+        <option value="transformation">Transformation</option>
+        <option value="growth">Growth</option>
+        <option value="collapse" selected>Collapse</option>
+        <option value="constraint">Constraint</option>
+      </select>
+      );
+    } else if(this.state.articleType == "constraint"){
+      return (
+        <select class="btn btn-secondary dropdown-toggle"  onChange={this.graphChange}>
+        <option value="transformation">Transformation</option>
+        <option value="growth">Growth</option>
+        <option value="collapse">Collapse</option>
+        <option value="constraint" selected>Constraint</option>
+      </select>
+      );
+    } 
   }
 
   componentWillMount(){
     let headline =  this.props.get("headline");
     let articleText = this.props.get("articleText");
+    let articleType = this.props.get("articleType");
 
-    if(headline == ""){
-      headline = "Enter your own headline";
+    if(!(articleType == "growth" || articleType == "collapse" || articleType == "constraint" || articleType == "transformation")){
+      articleType = "growth";
     }
-    if(articleText == ""){
-      articleText = "Write your article here";
+
+    if(articleText == null || articleText == "null"){
+      articleText = ""
+    }
+
+    if(headline == null || headline == "null"){
+      headline = ""
     }
 
     newsTitle = headline;
     newsBody = articleText;
     this.setState({
       articleTitle: headline,
-      articleBody: articleText});
+      articleBody: articleText,
+      articleType: articleType});
   }
   componentDidMount(){
     document.getElementById("articleTitle").value = this.state.articleTitle;
     document.getElementById("articleBody").value = this.state.articleBody;
 
-    window.addEventListener('resize', this.resizeCanvas, false);
-    window.addEventListener('orientationchange', this.resizeCanvas, false);
-
     const canvas = document.getElementById('canvas');
     const context = canvas.getContext('2d');
-    context.scale(0.5, 0.5);
+    context.scale(0.47, 0.47);
 
     this.paintNewspaper();
   }
+  validateNext = () => {
+    window.scrollTo(0,0);
+    this.props.update("headline", newsTitle);
+    this.props.update("articleText", newsBody);
+    this.props.update("articleType", this.state.articleType);
+    this.setState({nextPage: true});      
+  }
   render() {
+  if(this.state.nextPage){
+    return (<Redirect to="/"/>)
+  } else {
   return (
 <div className="App">
   <div className="jumbotron jumbotron-fluid">
@@ -422,37 +494,45 @@ class StepThree extends React.Component {
         <p>On this final step, we put everything together and into one big graphic. Edit the text as you see fit. When you're done, you can save the image to your device.</p>    
       </div>
     
-      <div className="reminderbox">
+      <div className="reminderboxcentered">
       <form onSubmit={this.handleSubmit}>
-      <input type="text" size="40" onChange={this.handleHeadlineChange} placeholder="Headline (e.g. 'Astronauts Land On Mars')" className="inputText" id="articleTitle"/><br/><br/>
-      <textarea rows="4" cols="40" onChange={this.handleBodyChange} id="articleBody">{this.state.articleText}</textarea><br/><br/>
+      Headline:<br/>
+      <input type="text" size="35" onChange={this.handleHeadlineChange} placeholder="Headline (e.g. 'Astronauts Land On Mars')" className="inputText" id="articleTitle"/><br/>
+      Article:<br/>
+      <textarea rows="4" cols="35" onChange={this.handleBodyChange} id="articleBody">{this.state.articleText}</textarea><br/>
+      <span >
+      Graph Type:&nbsp;&nbsp;
+      {this.dropdown()}
+      </span>
       </form>
-      </div>
-
-      <div className="responsebox">
-      <span className="warnerror" id="warn"></span><br/>
-      <p id="saveButton" className="btn btn-primary" onClick={this.newsPaper}>Save Image</p><br/>
-      </div>
-
-      <canvas id="canvas"  width="320" height="320" style={{backgroundColor: "ffffff"}}/>
-      <canvas id="hiddenCanvas" className="hiddenCanvas" width="640" height="640" style={{backgroundColor: "ffffff"}}/>
 
       <br/>
-      <div className="responsebox">
 
+      <canvas id="canvas"  width="300" height="290" style={{backgroundColor: "ffffff"}}/>
+      <canvas id="hiddenCanvas" className="hiddenCanvas" width="640" height="640" style={{backgroundColor: "ffffff"}}/>
+
+      <span id="saveButton" className="btn btn-primary" onClick={this.newsPaper}>Save Image</span>
       </div>
 
+      <br/>
+
       <div className="maintext">
-        <p>
-          Write a headline based on the prompt above.
+        <p><br/>
+            Return to the home page to start your headline over from the beginning.
           <br/><br/>
         </p>    
       </div>
     </div>
   </div>
+
+  <div className="responsebox">
+    <span className="warnerror" id="warn"></span><br/>
+    <p className="btn btn-primary"  onClick={this.validateNext}>Return Home</p><br/>
+  </div>
 </div> 
     );   
+    }
   }
 }
 
-export default StepThree;
+export default StepFive;	
