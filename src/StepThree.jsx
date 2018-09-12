@@ -131,7 +131,7 @@ class StepThree extends React.Component {
           Write a headline based on the prompt above.<br/><br/>
 
           <div className="responsebox">
-          <input type="text" size="40" placeholder="Headline (e.g. 'Astronauts Land On Mars')" className="inputText" id="headline"/><br/><br/>
+          <input type="text" size="35" placeholder="Headline (e.g. 'Astronauts Land On Mars')" className="inputText" id="headline"/><br/><br/>
           </div>
 
           If your prompts are all too similar you can go back and edit the <a href="" onClick={()=>{this.setState({goBackToOne: true})}}>signals</a> or <a  href="" onClick={()=>{this.setState({goBackToTwo: true})}}>drivers</a>.

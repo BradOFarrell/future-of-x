@@ -508,7 +508,7 @@ class StepFive extends React.Component {
 
       <br/>
       Preview:<br/>
-      <canvas id="canvas"  width="270" height="260" style={{backgroundColor: "ffffff"}}/>
+      <canvas id="canvas"  width="270" height="259" style={{backgroundColor: "ffffff"}}/>
       <canvas id="hiddenCanvas" className="hiddenCanvas" width="640" height="640" style={{backgroundColor: "ffffff"}}/>
 
       <span id="saveButton" className="btn btn-primary" onClick={this.newsPaper}>Save Image</span>
