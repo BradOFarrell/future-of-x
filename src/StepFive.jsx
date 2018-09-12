@@ -466,7 +466,7 @@ class StepFive extends React.Component {
 
     const canvas = document.getElementById('canvas');
     const context = canvas.getContext('2d');
-    context.scale(0.47, 0.47);
+    context.scale(0.42, 0.42);
 
     this.paintNewspaper();
   }
@@ -507,8 +507,8 @@ class StepFive extends React.Component {
       </form>
 
       <br/>
-
-      <canvas id="canvas"  width="300" height="290" style={{backgroundColor: "ffffff"}}/>
+      Preview:<br/>
+      <canvas id="canvas"  width="270" height="260" style={{backgroundColor: "ffffff"}}/>
       <canvas id="hiddenCanvas" className="hiddenCanvas" width="640" height="640" style={{backgroundColor: "ffffff"}}/>
 
       <span id="saveButton" className="btn btn-primary" onClick={this.newsPaper}>Save Image</span>
