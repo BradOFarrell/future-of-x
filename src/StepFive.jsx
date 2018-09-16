@@ -518,7 +518,7 @@ class StepFive extends React.Component {
 
       <div className="maintext">
         <p><br/>
-            Return to the home page to start your headline over from the beginning.
+            You can return to the home page to make a new headline.
           <br/><br/>
         </p>    
       </div>
