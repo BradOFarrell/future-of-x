@@ -66,7 +66,7 @@ class Home extends React.Component {
         <p>This web-app will help you develop a headline describing a unique perspective on the future of an industry, a company, or even your own personal future. For example, you could use it forecast The Future of Cellphones, The Future of Baseball, or The Future of San Francisco.</p>
         <center>Example headline:<br/>
         <img src={example}/></center>
-        <p>Neuroscientists have discovered techniques for increasing our cognitive flexibility, which allows us to imagine new possibilities. These scientific techniques form the basis of Futures Thinking.</p>
+        <p>Neuroscientists have discovered techniques for increasing our cognitive flexibility, which allows us to imagine new possibilities. The purpose of this app is to help you imagine new possiblities by using Futures Thinking.</p>
       </div>
       <div className="reminderbox">
         <span className="remindertitle">What is Futures Thinking?</span>
@@ -75,7 +75,7 @@ class Home extends React.Component {
       </div>
       <br/>  
       <div className="maintext">
-        <p>This application is a collection of Futures Thinking tools, adapted from the <a href="http://www.iftf.org/futuresthinking/">IFTF Futures Thinking Toolkit</a>. As you progress through each tool, you'll be building a complex model for the future that will be turned into a newspaper mockup on the final step.</p> 
+        <p>This application is a collection of digital tools adapted from the <a href="http://www.iftf.org/iftf-you/programs-initiatives/foresight-studio/">IFTF Foresight Toolkit</a>. As you progress through each tool, you'll be building a complex model for the future that will be turned into a newspaper headline on the final step. You'll be able to save your headline as an image that you can share on social media.</p> 
         <br/> 
       </div>
     </div>
