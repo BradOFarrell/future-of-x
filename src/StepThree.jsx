@@ -11,8 +11,9 @@ class StepThree extends React.Component {
       drivers: false,
       randomDrivers: new Array(),
       randomSignal: "",
+      randomYears: -1,
       lastSiRan: -1,
-      lastDrRan: -1,
+      lastYrRan: -1,
       goBackToOne: false,
       goBackToTwo: false,
       nextPage: false
@@ -22,38 +23,54 @@ class StepThree extends React.Component {
     const si = this.state.signals;
     const dr = this.state.drivers;
     let siRan = Math.floor(Math.random() * 3);
-    let drRan = Math.floor(Math.random() * 3);
+    let yrRan = Math.floor(Math.random() * 3);
+    let drRan1 = Math.floor(Math.random() * 5);
+    let drRan2 = Math.floor(Math.random() * 5);
+    let randomSignal;
+    let randomYears;
+    let randomDrivers = new Array();
 
-    console.log(siRan, drRan, this.state.lastSiRan, this.state.lastDrRan);
-
-    while(siRan == this.state.lastSiRan || drRan == this.state.lastDrRan){
-      siRan = Math.floor(Math.random() * 3);
-      drRan = Math.floor(Math.random() * 3);
+    // Reroll drivers if they are the same
+    while(drRan1 == drRan2){
+      drRan2 = Math.floor(Math.random() * 5);
       console.log("reRoll")
     }
 
-    let randomSignal = si[siRan];
-    let randomDrivers = new Array();
+    // Reroll signal if it's not a new value
+    while(siRan == this.state.lastSiRan){
+      siRan = Math.floor(Math.random() * 3);
+      console.log("reRoll")
+    }
 
-    switch (drRan) {
-      case 0:
-        randomDrivers[0] = dr[0];
-        randomDrivers[1] = dr[1];
-        break;
-      case 1:
-        randomDrivers[0] = dr[1];
-        randomDrivers[1] = dr[2];
-        break;
-      case 2:
-        randomDrivers[0] = dr[2];
-        randomDrivers[1] = dr[0];
-        break;
-      }
+    // Reroll years if it's not a new value
+    while(yrRan == this.state.lastYrRan){
+      yrRan = Math.floor(Math.random() * 3);
+      console.log("reRoll")
+    }
+
+    // Set signal
+    randomSignal = si[siRan];
+
+    // Set year
+           if(yrRan == 0){
+      randomYears = 2;
+    } else if(yrRan == 1){
+      randomYears = 5;
+    } else if(yrRan == 2){
+      randomYears = 10;
+    } 
+
+    // Set drivers
+    randomDrivers[0] = dr[drRan1];
+    randomDrivers[1] = dr[drRan2];
+
+      console.log(randomSignal,randomDrivers)
 
       this.setState({randomSignal: randomSignal,
                      randomDrivers: randomDrivers,
+                     randomYears: randomYears,
                      lastSiRan: siRan,
-                     lastDrRan: drRan});
+                     lastYrRan: yrRan});
   }
   validateNext = () => {
     const headline = document.getElementById("headline").value;
@@ -61,7 +78,10 @@ class StepThree extends React.Component {
       window.scrollTo(0,0);
       this.props.update("chosenDriverA", this.state.randomDrivers[0]);
       this.props.update("chosenDriverB", this.state.randomDrivers[1]);
-      this.props.update("chosenSignal", this.state.randomSignal);
+      this.props.update("chosenSignalTitle", this.state.randomSignal.title);
+      this.props.update("chosenSignalLink", this.state.randomSignal.link);
+      this.props.update("chosenSignalImg", this.state.randomSignal.img);
+      this.props.update("chosenYears", this.state.randomYears);
       this.props.update("headline", headline);
       this.props.update("searchTerm", this.state.searchTerm);
       this.setState({nextPage: true});      
@@ -73,31 +93,51 @@ class StepThree extends React.Component {
     const stepOneDone = (!this.state.signals || !this.state.signals[0]);
     const stepTwoDone = (!this.state.drivers || !this.state.drivers[0]);
     if(stepOneDone){
-      return (<div><span className="warnerror">You must complete step 1 to continue</span><br/><br/>
-      <button className="btn btn-primary"  onClick={()=>{this.setState({goBackToOne: true})}}>Back to Step 1</button></div>)
+      return (<div className="reminderboxcentered">
+              <div><span className="warnerror">You must complete step 1 to continue</span><br/><br/>
+              <button className="btn btn-primary"  onClick={()=>{this.setState({goBackToOne: true})}}>Back to Step 1</button></div>
+              </div>)
     } else if(stepTwoDone){
-      return (<div><span className="warnerror">You must complete step 2 to continue</span><br/><br/>
-      <button className="btn btn-primary"  onClick={()=>{this.setState({goBackToTwo: true})}}>Back to Step 2</button></div>)
+      return (<div className="reminderboxcentered">
+              <div><span className="warnerror">You must complete step 2 to continue</span><br/><br/>
+              <button className="btn btn-primary"  onClick={()=>{this.setState({goBackToTwo: true})}}>Back to Step 2</button></div>
+              </div>)
     } else if(this.state.randomSignal){
-      return (<div>
+      return (<div className="reminderboxcentered"
+      style={{backgroundImage: "url(" + this.state.randomSignal.img + ")",
+              backgroundSize: "contain", backgroundPosition: "50% 0",
+              backgroundColor: "rgba(0, 0, 0, 0.8)",
+              backgroundBlendMode: "darken"
+              }}>
         
-        Imagine a combination of<br/>
-        <h2>{this.state.randomDrivers[0]} + {this.state.randomDrivers[1]}</h2>
-        and the affect it would have on<br/>
-        <span className="highlighted">{this.state.randomSignal}</span><br/><br/>
+      Imagine an interaction between <span className="highlighted">"{this.state.randomDrivers[0]}"</span> and <span className="highlighted">"{this.state.randomDrivers[1]}"</span>.
+      How could it affect <span className="highlighted">{this.state.searchTerm}</span> in the next <span className="highlighted">{this.state.randomYears} years</span>? What would it mean for the <span className="highlighted">future</span> of this signal:
+      <br/><br/>
 
-        <button className="btn btn-primary"  onClick={()=>{this.reroll()}}>Generate New Random Prompt</button>
-      </div>);
+      <a target="_blank" href={this.state.randomSignal.link}>
+      <img src={this.state.randomSignal.img} style={{margin: "0px 10px 10px 10px", borderStyle: "solid", borderWidth: "2px", float:"right", width:"100px"}}></img>
+      {this.state.randomSignal.title}<br/><br/>
+      </a>
+
+            <button className="btn btn-primary"  onClick={()=>{this.reroll()}}>Generate New Random Prompt</button>
+            </div>);
     } else {
       return (<div>loading...</div>);
     }
   }
   componentWillMount(){
+    const getDrivers = this.props.get("drivers")
+    const getSignals = this.props.get("signals")
+    
+
+    console.log(getDrivers)
+    console.log(getSignals)
+  
     this.setState({
       searchTerm: this.props.get("searchTerm"),
-      drivers: this.props.get("drivers"),
-      signals: this.props.get("signals")}, ()=>{
-        this.reroll()}
+      drivers: getDrivers,
+      signals: getSignals},
+      ()=>{this.reroll()}
       );
     }
   render() {
@@ -119,19 +159,18 @@ class StepThree extends React.Component {
 
       <div className="maintext">
         <p>Forecasting the future is often about stacking up seemingly unrelated information to create something new. Juxtaposition and combination help us create new lenses for identifying possibilities.</p>
-        <p>This tool will take signals and drivers collected on the previous steps and combine them randomly. You can use this as a prompt to write a headline for the future.</p>    
+        <p>This tool will take signals and drivers collected on the previous steps and combine them randomly. You can use this as a prompt to write a headline from the future.</p>    
+        <p>So far the data we've been collecting has been focused on recent events. But on this step we want to focus on imagining potential <b>future events</b>. Remember, you are not predicting what you think <i>will happen</i>, but simply imagining something that <i>could happen</i>.</p> 
       </div>
 
-      <div className="reminderboxcentered">
         {this.randomPrompt()}
-      </div>
 
       <div className="maintext">
         <p><br/>
           Write a headline based on the prompt above.<br/><br/>
 
           <div className="responsebox">
-          <center><input type="text" size="30" placeholder="Headline (e.g. 'Water Found On Mars')"  id="headline"/></center><br/>
+          <center><input type="text" size="30" placeholder="(e.g. 'Water Found On Mars')"  id="headline"/></center><br/>
           </div>
 
           If your prompts are all too similar you can go back and edit the <a href="" onClick={()=>{this.setState({goBackToOne: true})}}>signals</a> or <a  href="" onClick={()=>{this.setState({goBackToTwo: true})}}>drivers</a>.

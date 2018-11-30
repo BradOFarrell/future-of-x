@@ -5,6 +5,8 @@
   "dependencies": {
     "ajv": "^6.5.3",
     "bootstrap": "^3.3.7",
+    "google-trends-api": "^4.7.0",
+    "https-proxy-agent": "^2.2.1",
     "most-common": "^1.2.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

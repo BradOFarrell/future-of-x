@@ -15,7 +15,9 @@ class App extends React.Component {
       searchTerm: "",
       signals: new Array(),
       drivers: new Array(),
-      chosenSignal: "",
+      chosenSignalTitle: "",
+      chosenSignalLink: "",
+      chosenSignalImg: "",
       chosenDriverA: "",
       chosenDriverB: "",
       headline: "",
@@ -24,17 +26,26 @@ class App extends React.Component {
     }
   }
   updateParent = (key, value) => {
+    console.log("updating " + key + " : " + value)
     console.log(key)
     console.log(value)
     this.setState({ [key]: value });
     if(key == "signals"){
-      localStorage.setItem("signal0", value[0]);
-      localStorage.setItem("signal1", value[1]);
-      localStorage.setItem("signal2", value[2]);
+      localStorage.setItem("signal0t", value[0].title);
+      localStorage.setItem("signal0l", value[0].link);
+      localStorage.setItem("signal0i", value[0].img);
+      localStorage.setItem("signal1t", value[1].title);
+      localStorage.setItem("signal1l", value[1].link);
+      localStorage.setItem("signal1i", value[1].img);
+      localStorage.setItem("signal2t", value[2].title);
+      localStorage.setItem("signal2l", value[2].link);
+      localStorage.setItem("signal2i", value[2].img);
     } else if(key == "drivers"){
       localStorage.setItem("driver0", value[0]);
       localStorage.setItem("driver1", value[1]);
       localStorage.setItem("driver2", value[2]);
+      localStorage.setItem("driver3", value[3]);
+      localStorage.setItem("driver4", value[4]);
     } else {
       localStorage.setItem(key, value);
     }
@@ -44,18 +55,32 @@ class App extends React.Component {
     console.log(JSON.stringify(this.state))
   }
   componentWillMount() {
-    const drivers = [localStorage.getItem('driver0'),localStorage.getItem('driver1'),localStorage.getItem('driver2')]
-    const signals = [localStorage.getItem('signal0'),localStorage.getItem('signal1'),localStorage.getItem('signal2')]
+    const drivers = [localStorage.getItem('driver0'),
+                     localStorage.getItem('driver1'),
+                     localStorage.getItem('driver2'),
+                     localStorage.getItem('driver3'),
+                     localStorage.getItem('driver4')]
+    const signals = [{title: localStorage.getItem('signal0t'),
+                       link: localStorage.getItem('signal0l'),
+                        img: localStorage.getItem('signal0i')},
+                     {title: localStorage.getItem('signal1t'),
+                       link: localStorage.getItem('signal1l'),
+                        img: localStorage.getItem('signal1i')},
+                     {title: localStorage.getItem('signal2t'),
+                       link: localStorage.getItem('signal2l'),
+                        img: localStorage.getItem('signal2i')}]
     this.setState({ searchTerm : localStorage.getItem('searchTerm'),
                     drivers : drivers, 
                     signals : signals,
-                    chosenSignal : localStorage.getItem('chosenSignal'),
+                    chosenSignalTitle : localStorage.getItem('chosenSignalTitle'),
+                    chosenSignalLink : localStorage.getItem('chosenSignalLink'),
+                    chosenSignalImg : localStorage.getItem('chosenSignalImg'),
+                    chosenYears : localStorage.getItem('chosenYears'),
                     chosenDriverA : localStorage.getItem('chosenDriverA'),
                     chosenDriverB : localStorage.getItem('chosenDriverB'),
                     headline : localStorage.getItem('headline'),
                     articleText : localStorage.getItem('articleText'),
                     articleType : localStorage.getItem('articleType')
-                  
                   });
   }
   resetData = () => {
