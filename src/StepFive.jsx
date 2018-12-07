@@ -43,14 +43,17 @@ class StepFive extends React.Component {
     picture.src = this.state.imgUrl;
 
     var transparent = new Image();
-    transparent = require("./transparent.png");
+    transparent.src = require("./transparent.png");
 
     backgroundImg.onload = function() {
       context.drawImage(backgroundImg, 0, 0);
       hiddenContext.drawImage(backgroundImg, 0, 0);
 
-      context.drawImage(picture, 80, 420, 245, 175);
-      hiddenContext.drawImage(picture, 80, 420, 245, 175);
+      context.drawImage(picture, 83, 425, 225, 165);
+      hiddenContext.drawImage(picture, 83, 425, 225, 165);
+
+      context.drawImage(transparent, 83, 425, 225, 165);
+      hiddenContext.drawImage(transparent, 83, 425, 225, 165);
 
       self.paintHeadline(context, hiddenContext, title);
       self.paintBody(context, hiddenContext, body);
@@ -70,54 +73,96 @@ class StepFive extends React.Component {
     
     let headlineOne = '';
     let headlineTwo = '';
+    let headlineThree = '';
 
     let headlineOneClosed = false;
     let headlineTwoClosed = false;
+    let headlineThreeClosed = false;
 
     let headlineOneWidth = 0;
     let headlineTwoWidth = 0;
+    let headlineThreeWidth = 0;
 
     if (headlineArray != null) {
-      headlineArray.forEach(headline => {
+      headlineArray.forEach(headlineWord => {
 
         if (!headlineOneClosed) {
-          if (context.measureText(headlineOne + headline).width > 500) {
+          if (context.measureText(headlineOne + headlineWord).width > 600) {
             headlineOneClosed = true;
           } 
           else {
-            headlineOne += headline + ' ';
+            headlineOne += headlineWord + ' ';
             return;
           }
         }
 
         if (!headlineTwoClosed) {
-          if (context.measureText(headlineTwo + headline).width > 500) {
+          if (context.measureText(headlineTwo + headlineWord).width > 600) {
             headlineTwoClosed = true;
           } 
           else {
-            headlineTwo += headline + ' ';
+            headlineTwo += headlineWord + ' ';
             return;
           }
-        }
+        } 
 
+        if (!headlineThreeClosed) {
+          if (context.measureText(headlineThree + headlineWord).width > 600) {
+            headlineThreeClosed = true;
+          } 
+          else {
+            headlineThree += headlineWord + ' ';
+            return;
+          }
+        } 
       });
     }
+    if (headlineOne != '' && headlineTwo != '' && headlineThree != '') {
+      context.font = "40px Futura";
+      hiddenContext.font = "40px Futura";
+      context.fillStyle = "#4c4343";
+      hiddenContext.fillStyle = "#4c4343";
 
-    headlineOneWidth = context.measureText(headlineOne).width;
-    headlineTwoWidth = context.measureText(headlineTwo).width;        
+      headlineOneWidth = context.measureText(headlineOne).width;
+      headlineTwoWidth = context.measureText(headlineTwo).width;        
+      headlineThreeWidth = context.measureText(headlineThree).width;        
+  
+      let headlineOneOffset = (-1*(headlineOneWidth - 500)/2)+80
+      let headlineTwoOffset = (-1*(headlineTwoWidth - 500)/2)+80
+      let headlineThreeOffset = (-1*(headlineThreeWidth - 500)/2)+80
 
-    let headlineOneOffset = (-1*(headlineOneWidth - 500)/2)+80
-    let headlineTwoOffset = (-1*(headlineTwoWidth - 500)/2)+80
+      context.fillText(headlineOne, headlineOneOffset, 180);
+      hiddenContext.fillText(headlineOne, headlineOneOffset, 180);
+      context.fillText(headlineTwo, headlineTwoOffset, 220);
+      hiddenContext.fillText(headlineTwo, headlineTwoOffset, 220);
+      context.fillText(headlineThree, headlineThreeOffset, 260);
+      hiddenContext.fillText(headlineThree, headlineThreeOffset, 260);
 
-    if (headlineOne != '' && headlineTwo != '') {
-      context.fillText(headlineOne, headlineOneOffset, 195);
-      hiddenContext.fillText(headlineOne, headlineOneOffset, 195);
-      context.fillText(headlineTwo, headlineTwoOffset, 245);
-      hiddenContext.fillText(headlineTwo, headlineTwoOffset, 245);
-    }
-    else if (headlineOne != '' ) {
-      context.fillText(headlineOne, headlineOneOffset, 220);
-      hiddenContext.fillText(headlineOne, headlineOneOffset, 220);
+    } else {
+      context.font = "48px Futura";
+      hiddenContext.font = "48px Futura";
+      context.fillStyle = "#4c4343";
+      hiddenContext.fillStyle = "#4c4343";
+    
+      headlineOneWidth = context.measureText(headlineOne).width;
+      headlineTwoWidth = context.measureText(headlineTwo).width;        
+      headlineThreeWidth = context.measureText(headlineThree).width;        
+  
+      let headlineOneOffset = (-1*(headlineOneWidth - 500)/2)+80
+      let headlineTwoOffset = (-1*(headlineTwoWidth - 500)/2)+80
+      let headlineThreeOffset = (-1*(headlineThreeWidth - 500)/2)+80
+  
+
+      if (headlineOne != '' && headlineTwo != '') {
+        context.fillText(headlineOne, headlineOneOffset, 195);
+        hiddenContext.fillText(headlineOne, headlineOneOffset, 195);
+        context.fillText(headlineTwo, headlineTwoOffset, 245);
+        hiddenContext.fillText(headlineTwo, headlineTwoOffset, 245);
+      }
+      else if (headlineOne != '' ) {
+        context.fillText(headlineOne, headlineOneOffset, 220);
+        hiddenContext.fillText(headlineOne, headlineOneOffset, 220);
+      }  
     }
   }
 
@@ -151,8 +196,8 @@ class StepFive extends React.Component {
       bodyArray = body.split(" ");
     }
 
-    context.fillStyle = "#4c4343";
-    hiddenContext.fillStyle = "#4c4343";
+    context.fillStyle = "#292424";
+    hiddenContext.fillStyle = "#292424";
 
     context.font = "54px Courier";
     hiddenContext.font = "54px Courier";
@@ -390,9 +435,13 @@ class StepFive extends React.Component {
   }
   updateImage = (e) =>{
     let newImg = document.getElementById("imageUrl").value;
-    this.setState({imgUrl: newImg},()=>{
-      this.paintNewspaper();
-    });    
+    if(newImg.substring(0, 4) == "http"){
+      this.setState({imgUrl: newImg},()=>{
+        this.paintNewspaper();
+      });      
+    } else { 
+      //staticImg?
+    }
   }
 
   downloadCanvas() {
@@ -459,6 +508,10 @@ class StepFive extends React.Component {
     let articleText = this.props.get("articleText");
     let articleType = this.props.get("articleType");
     let imgUrl = this.props.get("chosenSignalImg");
+
+    if(imgUrl == ""){
+      imgUrl = staticImg;
+    }
     
     if(!(articleType == "growth" || articleType == "collapse" || articleType == "constraint" || articleType == "transformation")){
       articleType = "growth";
@@ -515,7 +568,7 @@ class StepFive extends React.Component {
 
       <div className="maintext">
         <p>Front page news from the future can bring forecasts to life! Headlines of the future distill complex foresight into crisp, evocative, sharable messages, in a format that is accessible to nearly everyone. </p>
-        <p>On this final step, we put everything together and into one big graphic. Edit the text as you see fit. When you're done, you can save the image to your device.</p>    
+        <p>On this final step, we put everything together and into one big graphic. <b>Edit the text as you see fit.</b> You can also paste in a new image url, and change the graph using the drop down options. When you're done, you can save the image to your device.</p>    
       </div>
     
       <div className="reminderboxcentered">
