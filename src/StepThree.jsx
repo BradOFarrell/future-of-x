@@ -104,11 +104,11 @@ class StepThree extends React.Component {
               </div>)
     } else if(this.state.randomSignal){
       return (<div className="reminderboxcentered"
-      style={{backgroundImage: "url(" + this.state.randomSignal.img + ")",
-              backgroundSize: "contain", backgroundPosition: "50% 0",
-              backgroundColor: "#2d2d2d",
+      style={{backgroundColor: "#2d2d2d",
               backgroundColor: "rgba(0, 0, 0, 0.8)",
               backgroundBlendMode: "darken"
+              backgroundImage: "url(" + this.state.randomSignal.img + ")",
+              backgroundSize: "contain", backgroundPosition: "50% 0"
               }}>
         
       Imagine an interaction between <span className="highlighted">"{this.state.randomDrivers[0]}"</span> and <span className="highlighted">"{this.state.randomDrivers[1]}"</span>.
