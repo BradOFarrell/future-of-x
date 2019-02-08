@@ -103,13 +103,7 @@ class StepThree extends React.Component {
               <button className="btn btn-primary"  onClick={()=>{this.setState({goBackToTwo: true})}}>Back to Step 2</button></div>
               </div>)
     } else if(this.state.randomSignal){
-      return (<div className="reminderboxcentered"
-      style={{backgroundColor: "#2d2d2d",
-              backgroundColor: "rgba(0, 0, 0, 0.8)",
-              backgroundBlendMode: "darken",
-              backgroundImage: "url(" + this.state.randomSignal.img + ")",
-              backgroundSize: "contain", backgroundPosition: "50% 0"
-              }}>
+      return (<div className="reminderboxcentered">
         
       Imagine an interaction between <span className="highlighted">"{this.state.randomDrivers[0]}"</span> and <span className="highlighted">"{this.state.randomDrivers[1]}"</span>.
       How could it affect <span className="highlighted">{this.state.searchTerm}</span> in the next <span className="highlighted">{this.state.randomYears} years</span>? What would it mean for the <span className="highlighted">future</span> of this signal:
