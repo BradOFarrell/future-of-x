@@ -554,6 +554,12 @@ class StepFive extends React.Component {
     this.props.update("articleType", this.state.articleType);
     this.setState({nextPage: true});      
   }
+
+  /*
+      Image URL:<br/>
+      <input type="text" size="35" className="inputText" onChange={this.updateImage} id="imageUrl" placeholder="Paste an image URL here"/><br/>
+  */
+ 
   render() {
   if(this.state.nextPage){
     return (<Redirect to="/"/>)
@@ -577,8 +583,6 @@ class StepFive extends React.Component {
       <input type="text" size="35" onChange={this.handleHeadlineChange} placeholder="Headline (e.g. 'Astronauts Land On Mars')" className="inputText" id="articleTitle"/><br/>
       Blurb:<br/>
       <textarea rows="4" cols="35" onChange={this.handleBodyChange} id="articleBody"></textarea><br/>
-      Image URL:<br/>
-      <input type="text" size="35" className="inputText" onChange={this.updateImage} id="imageUrl" placeholder="Paste an image URL here"/><br/>
       <span >
       Graph Type:&nbsp;&nbsp;
       {this.dropdown()}

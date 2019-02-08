@@ -53,7 +53,7 @@ class StepThree extends React.Component {
 
     // Set year
            if(yrRan == 0){
-      randomYears = 2;
+      randomYears = 15;
     } else if(yrRan == 1){
       randomYears = 5;
     } else if(yrRan == 2){
@@ -106,6 +106,7 @@ class StepThree extends React.Component {
       return (<div className="reminderboxcentered"
       style={{backgroundImage: "url(" + this.state.randomSignal.img + ")",
               backgroundSize: "contain", backgroundPosition: "50% 0",
+              backgroundColor: "#2d2d2d",
               backgroundColor: "rgba(0, 0, 0, 0.8)",
               backgroundBlendMode: "darken"
               }}>
