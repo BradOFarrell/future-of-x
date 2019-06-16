@@ -376,16 +376,21 @@ class StepTwo extends React.Component {
       <br/>
       <p>You have your signals of change - specific, concrete examples of things happening today. Now it’s time to add another layer by identifying five <b>“drivers of change.”</b> Drivers of change are broad, longer term forces or macro-trends that will shape the evolution of your Future of X.</p>
       <p>For each of the news stories you’ve chosen, ask yourself: what is one key driver that will affect this? Think about market trends, technology development, shifting social values, demographic  changes, climate volatility, new ways people are working and learning, even longterm geopolitical transformations. </p> 
-      <p>You can use the research tool below to explore relevant news articles. But remember, headlines only show what is happening <b>today</b>, and drivers are broader trends across longer periods of time. You'll have to read each article to gather clues on how things are changing.</p>    
+      <p>You can use the research tool below to explore relevant news articles. But remember, headlines only show what is happening <b>today</b>, and drivers are broader trends across longer periods of time. You'll have to read each article to gather clues on how things are changing. Try to find diverse drivers that represent the five different categories.</p>    
       </div>
 
       <div className="responsebox">
       <form onSubmit={this.handleSubmit}>
-      <input type="text" placeholder="Social Driver" className="inputText" id="myDriver1"        value={this.state.d1}/><br/><br/>
-      <input type="text" placeholder="Technological Driver" className="inputText" id="myDriver2" value={this.state.d2}/><br/><br/>
-      <input type="text" placeholder="Economic Driver" className="inputText" id="myDriver3"      value={this.state.d3}/><br/><br/>
-      <input type="text" placeholder="Enviromental Driver" className="inputText" id="myDriver4"  value={this.state.d4}/><br/><br/>
-      <input type="text" placeholder="Political Driver" className="inputText" id="myDriver5"     value={this.state.d5}/><br/><br/>
+          Social Driver:<br/>
+      <input type="text" className="inputText" id="myDriver1"/><br/>
+          Technological Driver:<br/>
+      <input type="text" className="inputText" id="myDriver2"/><br/>
+          Economic Driver:<br/>
+      <input type="text" className="inputText" id="myDriver3"/><br/>
+          Enviromental Driver:<br/>
+      <input type="text" className="inputText" id="myDriver4"/><br/>
+          Political Driver:<br/>
+      <input type="text" className="inputText" id="myDriver5"/><br/><br/>
       </form>
       </div>
 
